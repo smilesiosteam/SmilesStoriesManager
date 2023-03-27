@@ -1,0 +1,77 @@
+{
+  "pins" : [
+    {
+      "identity" : "lottie-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/airbnb/lottie-ios.git",
+      "state" : {
+        "revision" : "4e51b71c6ef1b645c9a83de112d627c919143137",
+        "version" : "4.1.3"
+      }
+    },
+    {
+      "identity" : "networkinglayer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hananahmad/NetworkingLayer.git",
+      "state" : {
+        "revision" : "394580ddc519921bfdc7e737e6f05c0ae92e8276",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "nvactivityindicatorview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ninjaprox/NVActivityIndicatorView.git",
+      "state" : {
+        "revision" : "bcb52371f2259254bac6690f92bb474a61768c47",
+        "version" : "5.1.1"
+      }
+    },
+    {
+      "identity" : "smilesbasemainrequest",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hananahmad/SmilesBaseMainRequest.git",
+      "state" : {
+        "revision" : "eb046195f08f30aeac5ae47978569a73c7fce129",
+        "version" : "1.1.6"
+      }
+    },
+    {
+      "identity" : "smilesfontmanager",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hananahmad/SmilesFontManager.git",
+      "state" : {
+        "revision" : "b1a7d227e588ca3f176265a738d3d71ad58eb731",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "smileslanguagemanager",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hananahmad/SmilesLanguageManager.git",
+      "state" : {
+        "revision" : "6e366fc95a8226b2efec6158ee4a9fed1a83cf8c",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "smilesloader",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hananahmad/SmilesLoader.git",
+      "state" : {
+        "revision" : "38abf74308811c2b5045538488ab1f68817750eb",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "smilesstorage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hananahmad/SmilesStorage.git",
+      "state" : {
+        "revision" : "178135f1caa1013d7304ff62d02e6febaf40d666",
+        "version" : "1.0.2"
+      }
+    }
+  ],
+  "version" : 2
+}

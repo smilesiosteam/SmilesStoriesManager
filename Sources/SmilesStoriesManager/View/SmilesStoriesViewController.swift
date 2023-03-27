@@ -1,0 +1,170 @@
+//
+//  SmilesStoriesViewController.swift
+//  
+//
+//  Created by Abdul Rehman Amjad on 13/03/2023.
+//
+
+import UIKit
+import Combine
+import SmilesLoader
+import SmilesLanguageManager
+
+public class SmilesStoriesViewController: IGStoryPreviewController, StoryboardInstantiable {
+    
+    // MARK: -- Variables
+    private let input: PassthroughSubject<StoriesViewModel.Input, Never> = .init()
+    private var viewModel: StoriesViewModel!
+    private var cancellables = Set<AnyCancellable>()
+    private var storyPreviewScene: IGStoryPreviewController?
+    private var favoriteOperation = 0 // Operation 1 = add and Operation 2 = remove
+    private var baseURL: String = ""
+    private var shareURL: String = ""
+    public var favouriteUpdatedCallback: ((_ storyIndex:Int,_ snapIndex:Int,_ isFavourite:Bool) -> Void)? = nil
+    
+    // MARK: -- View LifeCycle
+    public init?(favoriteOperation: Int = 0, baseURL: String, stories: [Story],handPickedStoryIndex: Int, handPickedSnapIndex: Int = 0, shareURL: String) {
+        super.init(stories: stories, handPickedStoryIndex: handPickedStoryIndex, handPickedSnapIndex: handPickedSnapIndex)
+        self.favoriteOperation = favoriteOperation
+        self.baseURL = baseURL
+        self.shareURL = shareURL
+        viewModel = StoriesViewModel(baseURL: baseURL)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        bind(to: viewModel)
+    }
+    
+    // MARK: -- Binding
+    
+    func bind(to viewModel: StoriesViewModel) {
+        let output = viewModel.transform(input: input.eraseToAnyPublisher())
+        output
+            .sink { [weak self] event in
+                switch event {
+                case .fetchStoriesDidSucceed:
+                    break
+                case .updateWishlistStatusDidSucceed(let response):
+                    self?.resume()
+                    self?.setFavourite(wishlistResponse: response, operation: self?.favoriteOperation ?? 0)
+                case .fetchDidFail(let error):
+                    self?.showAlertWithOkayOnly(
+                        message: error.localizedDescription,
+                        title: "Error")
+                    { _ in
+                        self?.dismiss()
+                    }
+                case .showHideLoader(let shouldShow):
+                    if shouldShow {
+                        SmilesLoader.show()
+                    } else {
+                        SmilesLoader.dismiss()
+                    }
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    override func favouriteUpdated(snapIndex: Int, storyIndex: Int) {
+        if let snap = currentSelectedStory()?.snaps?[snapIndex],let _ = snap.uniqueIdentifier {
+            self.favouriteUpdatedCallback?(storyIndex,snapIndex,snap.isFavorite ?? false)
+        }
+    }
+    
+    func showAlertWithOkayOnly(message: String, title: String = "", completion: ((UIAlertAction) -> Void)? = nil) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: SmilesLanguageManager.shared.getLocalizedString(for: "OK"), style: .default, handler: completion)
+        alertController.addAction(OKAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    override func favouriteButtonPressed(snapIndex: Int, storyIndex: Int) {
+        if let snap = currentSelectedStory()?.snaps?[snapIndex] {
+            if let id = snap.uniqueIdentifier {
+                favoriteOperation = (snap.isFavorite ?? false) ? 2 : 1
+                self.pause()
+                if !snap.isOfferStory {
+                    input.send(.updateRestaurantWishlistStatus(operation: favoriteOperation, restaurantId: "\(id)"))
+                } else {
+                    input.send(.updateOfferWishlistStatus(operation: favoriteOperation, offerId: "\(id)"))
+                }
+            }
+        }
+    }
+    
+    override func shareButtonPressed(snapIndex: Int, storyIndex: Int) {
+        
+        if let snap = stories[storyIndex].snaps?[snapIndex] {
+            if !snap.isOfferStory {
+                shareRestaurant(for: snap)
+            } else {
+                shareOffer(for: snap)
+            }
+        }
+        
+    }
+    
+}
+
+extension SmilesStoriesViewController {
+    func shareRestaurant(for snap: StorySnap) {
+        var orderType: String = ""
+        if let redirectionUrl = snap.redirectionUrl, redirectionUrl.contains("DELIVERY") {
+            orderType = "DELIVERY"
+        } else {
+            orderType = "PICK_UP"
+        }
+        
+        let sharingDialog = StoriesSharingText(
+            restaurntId: snap.uniqueIdentifier ?? "",
+            orderType: orderType,
+            restaurantName: snap.title ?? "",
+            restaurantInfoShareText: snap.restaurantInfoShareText ?? "",
+            sourceView: view
+        )
+        
+        let activityView = sharingDialog.shareLink()
+        activityView.completionWithItemsHandler = { (activityType, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            self.resume()
+        }
+        self.pause()
+        present(activityView, animated: true)
+    }
+    
+    func shareOffer(for snap: StorySnap) {
+        
+        let shareUrl = String(format: shareURL, snap.uniqueIdentifier ?? "", snap.offerType ?? "")
+        
+        let urlString = shareUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlFragmentAllowed)
+        if let string = urlString, !string.isEmpty {
+            let shareItems = [string]
+            
+            if shareItems.count > 0 {
+                let activityViewController = UIActivityViewController(activityItems: shareItems as [Any], applicationActivities: nil)
+                
+                // exclude some activity types from the list (optional)
+                activityViewController.excludedActivityTypes = [UIActivity.ActivityType.postToWeibo,
+                                                                UIActivity.ActivityType.print,
+                                                                UIActivity.ActivityType.copyToPasteboard,
+                                                                UIActivity.ActivityType.assignToContact,
+                                                                UIActivity.ActivityType.saveToCameraRoll,
+                                                                UIActivity.ActivityType.addToReadingList,
+                                                                UIActivity.ActivityType.postToTencentWeibo,
+                                                                UIActivity.ActivityType.airDrop]
+                
+                activityViewController.completionWithItemsHandler = { (activityType, completed: Bool, returnedItems: [Any]?, error: Error?) in
+                    self.resume()
+                }
+                
+                // present the view controller
+                self.pause()
+                present(activityViewController, animated: true)
+            }
+        }
+    }
+}
