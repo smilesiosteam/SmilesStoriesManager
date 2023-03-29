@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SmilesFontsManager
 
 protocol StoryPreviewHeaderProtocol: AnyObject {
     func didTapCloseButton()
@@ -44,8 +45,12 @@ final class IGStoryPreviewHeaderView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    private let detailView: UIView = {
-        let view = UIView()
+    private let detailsStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 2
+        view.alignment = .fill
+        view.distribution = .fill
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -55,12 +60,7 @@ final class IGStoryPreviewHeaderView: UIView {
         label.textColor = .white
         return label
     }()
-    internal let lastUpdatedLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .white
-        return label
-    }()
+    
     private lazy var closeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -79,6 +79,63 @@ final class IGStoryPreviewHeaderView: UIView {
         return v
     }
     
+    // MARK: - SubDetailsView -
+    private let subDetailsStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 4
+        view.alignment = .leading
+        view.distribution = .fill
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let promotionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Promotion"
+        label.font = SmilesFonts.circular(.medium).getFont(size: 12)
+        label.numberOfLines = 1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor(hex: "e7e5e7")
+        return label
+    }()
+    
+    private let separator: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(hex: "a6a8b3")
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    // MARK: - Rating View -
+    private let ratingView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 2
+        view.alignment = .fill
+        view.distribution = .fill
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    private let ratingIcon: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "rating-icon")
+        view.contentMode = .scaleAspectFit
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    private let tagLabel: UILabel = {
+        let label = UILabel()
+        label.text = "4.9"
+        label.font = SmilesFonts.circular(.medium).getFont(size: 12)
+        label.numberOfLines = 1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor(hex: "e7e5e7")
+        return label
+    }()
+    
     //MARK: - Overriden functions
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -94,7 +151,26 @@ final class IGStoryPreviewHeaderView: UIView {
     //MARK: - Private functions
     private func udpateUI() {
         if let snap = story?.snaps?[snapIndex] {
-            lastUpdatedLabel.text = snap.formattedEndDate
+            promotionLabel.isHidden = snap.isOfferStory
+            ratingView.isHidden = snap.isOfferStory
+            separator.isHidden = snap.isOfferStory
+            if !snap.isOfferStory {
+                if let rating = snap.restaurantRating, rating != 0.0 {
+                    ratingView.isHidden = false
+                    if !promotionLabel.isHidden && snap.promotionText != nil {
+                        separator.isHidden = false
+                    } else {
+                        separator.isHidden = true
+                    }
+                tagLabel.text = String(format:"%.1f",rating)
+                } else{
+                    ratingView.isHidden = true
+                    separator.isHidden = true
+                }
+            }
+            subDetailsStackView.isHidden = promotionLabel.isHidden && ratingView.isHidden && separator.isHidden
+            layoutIfNeeded()
+            promotionLabel.text = snap.promotionText
             snaperNameLabel.text = snap.title
             if let picture = story?.snaps?[snapIndex].logoUrl {
                 snaperImageView.setImage(url: picture)
@@ -105,10 +181,23 @@ final class IGStoryPreviewHeaderView: UIView {
         backgroundColor = .clear
         addSubview(getProgressView)
         addSubview(snaperImageView)
-        addSubview(detailView)
-        detailView.addSubview(snaperNameLabel)
-        detailView.addSubview(lastUpdatedLabel)
+        addSubview(detailsStackView)
         addSubview(closeButton)
+        
+        ratingView.addArrangedSubview(ratingIcon)
+        ratingView.addArrangedSubview(tagLabel)
+        
+        let spacerView = UIView()
+        spacerView.backgroundColor = .clear
+        spacerView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        
+        subDetailsStackView.addArrangedSubview(promotionLabel)
+        subDetailsStackView.addArrangedSubview(separator)
+        subDetailsStackView.addArrangedSubview(ratingView)
+        subDetailsStackView.addArrangedSubview(spacerView)
+        
+        detailsStackView.addArrangedSubview(snaperNameLabel)
+        detailsStackView.addArrangedSubview(subDetailsStackView)
     }
     private func installLayoutConstraints(){
         //Setting constraints for progressView
@@ -131,29 +220,26 @@ final class IGStoryPreviewHeaderView: UIView {
         
         //Setting constraints for detailView
         NSLayoutConstraint.activate([
-            detailView.igLeadingAnchor.constraint(equalTo: snaperImageView.igTrailingAnchor, constant: 8),
-            detailView.igCenterYAnchor.constraint(equalTo: snaperImageView.igCenterYAnchor)
+            detailsStackView.igLeadingAnchor.constraint(equalTo: snaperImageView.igTrailingAnchor, constant: 9),
+            detailsStackView.igCenterYAnchor.constraint(equalTo: snaperImageView.igCenterYAnchor)
             ])
         
         //Setting constraints for closeButton
         NSLayoutConstraint.activate([
-            closeButton.igLeadingAnchor.constraint(equalTo: detailView.igTrailingAnchor, constant: 16),
+            closeButton.igLeadingAnchor.constraint(equalTo: detailsStackView.igTrailingAnchor, constant: 16),
             closeButton.topAnchor.constraint(equalTo: self.snaperImageView.topAnchor),
             closeButton.igTrailingAnchor.constraint(equalTo: self.igTrailingAnchor, constant: -16),
             closeButton.widthAnchor.constraint(equalToConstant: 32),
             closeButton.heightAnchor.constraint(equalToConstant: 32)
             ])
         
-        //Setting constraints for snapperNameLabel
         NSLayoutConstraint.activate([
-            snaperNameLabel.igLeadingAnchor.constraint(equalTo: detailView.igLeadingAnchor),
-            snaperNameLabel.igTopAnchor.constraint(equalTo: detailView.igTopAnchor),
-            snaperNameLabel.trailingAnchor.constraint(equalTo: detailView.trailingAnchor),
-            snaperNameLabel.bottomAnchor.constraint(equalTo: lastUpdatedLabel.topAnchor,constant: -8),
-            lastUpdatedLabel.igBottomAnchor.constraint(equalTo: detailView.bottomAnchor),
-            lastUpdatedLabel.igLeadingAnchor.constraint(equalTo: detailView.igLeadingAnchor),
-            lastUpdatedLabel.igLeadingAnchor.constraint(equalTo: detailView.igLeadingAnchor)
-            ])
+            ratingIcon.heightAnchor.constraint(equalToConstant: 12),
+            ratingIcon.widthAnchor.constraint(equalToConstant: 12),
+            ratingView.widthAnchor.constraint(equalToConstant: 32),
+            separator.widthAnchor.constraint(equalToConstant: 2),
+            separator.heightAnchor.constraint(equalToConstant: 12)
+        ])
         
     }
     private func applyShadowOffset() {

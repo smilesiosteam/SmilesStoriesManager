@@ -33,7 +33,7 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
         v.translatesAutoresizingMaskIntoConstraints = false
         v.alpha = 0.6
         v.direction = 2
-        v.updateColors(locations: [0.29,0.77, 1], colors: [UIColor.black.withAlphaComponent(0.45).cgColor,UIColor.clear.cgColor,UIColor.clear.cgColor])
+        v.updateColors(locations: [0.23, 0.71, 1], colors: [UIColor.black.cgColor, UIColor.black.withAlphaComponent(0.45).cgColor,UIColor.clear.cgColor])
         return v
     }()
     
@@ -234,7 +234,7 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
             storyHeaderView.igLeadingAnchor.constraint(equalTo: contentView.igLeadingAnchor),
             contentView.igTrailingAnchor.constraint(equalTo: storyHeaderView.igTrailingAnchor),
             storyHeaderView.igTopAnchor.constraint(equalTo: contentView.igTopAnchor),
-            storyHeaderView.heightAnchor.constraint(equalToConstant: 100)
+            storyHeaderView.heightAnchor.constraint(equalToConstant: 110)
         ])
         
         NSLayoutConstraint.activate([

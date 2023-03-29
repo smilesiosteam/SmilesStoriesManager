@@ -30,10 +30,10 @@
     {
       "identity" : "smilesbasemainrequest",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/hananahmad/SmilesBaseMainRequest.git",
+      "location" : "https://github.com/smilesiosteam/SmilesBaseMainRequest.git",
       "state" : {
-        "revision" : "eb046195f08f30aeac5ae47978569a73c7fce129",
-        "version" : "1.1.6"
+        "revision" : "132a0e82f71402e3ea78bcfb50a4a264e3a3585f",
+        "version" : "1.0.4"
       }
     },
     {
