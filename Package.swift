@@ -16,11 +16,11 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/smilesiosteam/SmilesBaseMainRequest.git", .upToNextMinor(from: "1.0.0")),
-        .package(url: "https://github.com/hananahmad/NetworkingLayer.git", from: "1.0.0"),
-        .package(url: "https://github.com/hananahmad/SmilesLoader.git", from: "1.0.0"),
-        .package(url: "https://github.com/hananahmad/SmilesLanguageManager.git", from: "1.0.0"),
+        .package(url: "https://github.com/smilesiosteam/NetworkingLayer.git", .upToNextMinor(from: "1.0.0")),
+        .package(url: "https://github.com/smilesiosteam/SmilesLoader.git", .upToNextMinor(from: "1.0.0")),
+        .package(url: "https://github.com/smilesiosteam/SmilesLanguageManager.git", .upToNextMinor(from: "1.0.0")),
         .package(url: "https://github.com/airbnb/lottie-ios.git", .upToNextMajor(from: "4.0.0")),
-        .package(url: "https://github.com/hananahmad/SmilesFontManager.git", .upToNextMajor(from: "1.0.0"))
+        .package(url: "https://github.com/smilesiosteam/SmilesFontsManager.git", .upToNextMinor(from: "1.0.0"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -32,7 +32,7 @@ let package = Package(
                 .product(name: "NetworkingLayer", package: "NetworkingLayer"),
                 .product(name: "SmilesLoader", package: "SmilesLoader"),
                 .product(name: "SmilesLanguageManager", package: "SmilesLanguageManager"),
-                .product(name: "SmilesFontsManager", package: "SmilesFontManager"),
+                .product(name: "SmilesFontsManager", package: "SmilesFontsManager"),
                 .product(name: "Lottie", package: "lottie-ios")
             ]),
     ]

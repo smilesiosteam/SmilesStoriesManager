@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "cryptoswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krzyzanowskim/CryptoSwift.git",
+      "state" : {
+        "revision" : "95c18f1c1bc44d5547728621ed680850368f7a45",
+        "version" : "1.7.0"
+      }
+    },
+    {
       "identity" : "lottie-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/airbnb/lottie-ios.git",
@@ -12,9 +21,9 @@
     {
       "identity" : "networkinglayer",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/hananahmad/NetworkingLayer.git",
+      "location" : "https://github.com/smilesiosteam/NetworkingLayer.git",
       "state" : {
-        "revision" : "394580ddc519921bfdc7e737e6f05c0ae92e8276",
+        "revision" : "00601431797a4b7d87fdab8f5b11faebd70291b3",
         "version" : "1.0.0"
       }
     },
@@ -37,29 +46,29 @@
       }
     },
     {
-      "identity" : "smilesfontmanager",
+      "identity" : "smilesfontsmanager",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/hananahmad/SmilesFontManager.git",
+      "location" : "https://github.com/smilesiosteam/SmilesFontsManager.git",
       "state" : {
-        "revision" : "b1a7d227e588ca3f176265a738d3d71ad58eb731",
+        "revision" : "0e427c0e29382c72d4e53339a5b5aef2d743b420",
         "version" : "1.0.0"
       }
     },
     {
       "identity" : "smileslanguagemanager",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/hananahmad/SmilesLanguageManager.git",
+      "location" : "https://github.com/smilesiosteam/SmilesLanguageManager.git",
       "state" : {
-        "revision" : "6e366fc95a8226b2efec6158ee4a9fed1a83cf8c",
+        "revision" : "1ead4bcf578ffdeee7318bddfd3d8b2dbdcc2597",
         "version" : "1.0.0"
       }
     },
     {
       "identity" : "smilesloader",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/hananahmad/SmilesLoader.git",
+      "location" : "https://github.com/smilesiosteam/SmilesLoader.git",
       "state" : {
-        "revision" : "38abf74308811c2b5045538488ab1f68817750eb",
+        "revision" : "0c4cf65b6173fd1b99cd0f4e4a7443d04af97291",
         "version" : "1.0.0"
       }
     },
