@@ -1,6 +1,7 @@
 import UIKit
 import AVKit
 import SmilesLanguageManager
+import LottieAnimationManager
 
 protocol StoryPreviewProtocol: AnyObject {
     func didCompletePreview()
@@ -337,7 +338,7 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
     }
     
     private func startAnimationRequest(snapView: UIImageView, with url: String) {
-        StoriesAppAnimator.showAnimationFromUrl(FromUrl: url, animationBackgroundView: snapView,loopMode: .loop) { animation in
+        LottieAnimationManager.showAnimationFromUrl(FromUrl: url, animationBackgroundView: snapView,loopMode: .loop) { animation in
             if animation != nil {
                 OperationQueue.main.addOperation{
                     /// Start progressor only if handpickedSnapIndex matches with snapIndex and the requested image url should be matched with current snapIndex imageurl
@@ -753,7 +754,7 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
         }
     }
     func updateFooter(){
-        self.storyFooterView.updateUI()
+        self.storyFooterView.updateUI(isFavouriteUpdated: true)
     }
     
 }

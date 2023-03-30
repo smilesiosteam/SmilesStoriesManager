@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import SmilesLanguageManager
 import SmilesFontsManager
+import LottieAnimationManager
 
 class StoryPreviewFooterView: UIView {
     
@@ -138,16 +139,6 @@ class StoryPreviewFooterView: UIView {
         return view
     }()
     
-    private lazy var infoButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "info_icon"), for: .normal)
-        button.setTitle("", for: .normal)
-        button.backgroundColor = .clear
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(infoPressed), for: .touchUpInside)
-        return button
-    }()
-    
     private lazy var shareButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "shareIcon"), for: .normal)
@@ -168,6 +159,14 @@ class StoryPreviewFooterView: UIView {
         return button
     }()
     
+    private let favouriteAnimationView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.isUserInteractionEnabled = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     // MARK: - Properties -
     var primaryButtonAction = {}
     var infoButtonAction = {}
@@ -184,10 +183,6 @@ class StoryPreviewFooterView: UIView {
     // MARK: - Actions -
     @objc private func availPressed() {
         primaryButtonAction()
-    }
-    
-    @objc private func infoPressed() {
-        infoButtonAction()
     }
     
     @objc private func sharePressed() {
@@ -210,10 +205,19 @@ class StoryPreviewFooterView: UIView {
         super.init(coder: coder)
     }
     
+    private func showFavouriteAnimation() {
+        
+        LottieAnimationManager.showAnimation(onView: favouriteAnimationView, withJsonFileName: "Heart") { [weak self] isCompleted in
+            self?.setFavouriteIcon()
+        }
+        
+    }
+    
     func setupUI(){
         
         backgroundColor = .clear
         addSubview(detailsView)
+        addSubview(favouriteAnimationView)
         detailsView.addSubview(mainStackView)
         costContainerView.addSubview(smileyPointsStackView)
         
@@ -227,7 +231,6 @@ class StoryPreviewFooterView: UIView {
         detailsStackView.addArrangedSubview(costContainerView)
         
         buttonsStackView.addArrangedSubview(availNowButton)
-        buttonsStackView.addArrangedSubview(infoButton)
         buttonsStackView.addArrangedSubview(shareButton)
         buttonsStackView.addArrangedSubview(favouriteButton)
         
@@ -237,9 +240,6 @@ class StoryPreviewFooterView: UIView {
         detailsView.clipsToBounds = true
         detailsView.layer.cornerRadius = 16
         detailsView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        
-//        ratingView.clipsToBounds = true
-//        ratingView.layer.cornerRadius = 16
         
         availNowButton.clipsToBounds = true
         availNowButton.layer.cornerRadius = 24
@@ -251,7 +251,7 @@ class StoryPreviewFooterView: UIView {
         
     }
     
-    func updateUI(){
+    func updateUI(isFavouriteUpdated: Bool = false) {
         //refresh icon
         if let snap = story?.snaps?[snapIndex] {
             costContainerView.isHidden = !snap.isOfferStory
@@ -283,11 +283,29 @@ class StoryPreviewFooterView: UIView {
             titleLabel.text = snap.storyDetailDescription
             shareButton.isHidden = !(snap.isSharingAllowed ?? false)
             favouriteButton.isHidden = !(snap.isFavoriteAllowed ?? false)
-            infoButton.isHidden = !(snap.isInfoAllowed ?? false)
             self.availNowButton.isHidden = !(snap.isbuttonEnabled ?? (snap.redirectionUrl != nil))
             self.availNowButton.setTitle(snap.buttonTitle, for: .normal)
-            favouriteButton.setImage(snap.isFavorite ?? false ? #imageLiteral(resourceName: "fvrtIconFilled") : #imageLiteral(resourceName: "fvrtIcon"), for: .normal)
+            if isFavouriteUpdated && (snap.isFavorite ?? false) {
+                showFavouriteAnimation()
+            } else {
+                setFavouriteIcon()
+            }
+            
         }
+    }
+    
+    private func setFavouriteIcon() {
+        
+        if let snap = story?.snaps?[snapIndex] {
+            var image: UIImage?
+            if snap.isFavorite ?? false {
+                image = UIImage(named: "fvrtIconFilled")?.withTintColor(UIColor(hex: "EA5B6C"), renderingMode: .alwaysOriginal)
+            } else {
+                image = UIImage(named: "fvrtIcon")
+            }
+            favouriteButton.setImage(image, for: .normal)
+        }
+        
     }
     
     private func setupConstraints() {
@@ -307,11 +325,16 @@ class StoryPreviewFooterView: UIView {
         ])
         
         NSLayoutConstraint.activate([
+            favouriteAnimationView.leadingAnchor.constraint(equalTo: favouriteButton.igLeadingAnchor, constant: -27),
+            favouriteAnimationView.trailingAnchor.constraint(equalTo: favouriteButton.igTrailingAnchor, constant: 27),
+            favouriteAnimationView.topAnchor.constraint(equalTo: favouriteButton.topAnchor, constant: -27),
+            favouriteAnimationView.bottomAnchor.constraint(equalTo: favouriteButton.igBottomAnchor, constant: 27)
+        ])
+        
+        NSLayoutConstraint.activate([
             pointsIcon.heightAnchor.constraint(equalToConstant: 16),
             pointsIcon.widthAnchor.constraint(equalToConstant: 16),
             costContainerView.heightAnchor.constraint(equalToConstant: 20),
-            infoButton.heightAnchor.constraint(equalToConstant: bottomButtonHeight),
-            infoButton.widthAnchor.constraint(equalToConstant: bottomButtonHeight),
             shareButton.heightAnchor.constraint(equalToConstant: bottomButtonHeight),
             shareButton.widthAnchor.constraint(equalToConstant: bottomButtonHeight),
             favouriteButton.heightAnchor.constraint(equalToConstant: bottomButtonHeight),
