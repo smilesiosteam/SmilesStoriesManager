@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "lottieanimationmanager",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smilesiosteam/LottieAnimationManager.git",
+      "state" : {
+        "revision" : "dd3845a1518cda51eb323259b5afab0c2513978a",
+        "version" : "1.0.0"
+      }
+    },
+    {
       "identity" : "networkinglayer",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/NetworkingLayer.git",
