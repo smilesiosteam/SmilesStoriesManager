@@ -383,6 +383,7 @@ extension IGStoryPreviewController: StoryPreviewProtocol {
 
             currentCell?.story?.snaps?[snapIndex].isFavorite = isFavorite
             currentCell?.updateFooter()
+            self.favouriteUpdated(snapIndex: snapIndex, storyIndex: nStoryIndex)
         }
     }
     func pause(){
