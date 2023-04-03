@@ -299,7 +299,8 @@ class StoryPreviewFooterView: UIView {
         if let snap = story?.snaps?[snapIndex] {
             var image: UIImage?
             if snap.isFavorite ?? false {
-                image = UIImage(named: "fvrtIconFilled")?.withTintColor(UIColor(hex: "EA5B6C"), renderingMode: .alwaysOriginal)
+//                image = UIImage(named: "fvrtIconFilled")?.withTintColor(UIColor(hex: "EA5B6C"), renderingMode: .alwaysOriginal)
+                image = UIImage(named: "fvrtIconFilled")
             } else {
                 image = UIImage(named: "fvrtIcon")
             }
