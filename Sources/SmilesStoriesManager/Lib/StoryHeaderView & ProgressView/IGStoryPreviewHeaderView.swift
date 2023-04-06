@@ -93,7 +93,7 @@ final class IGStoryPreviewHeaderView: UIView {
     private let promotionLabel: UILabel = {
         let label = UILabel()
         label.text = "Promotion"
-        label.font = SmilesFonts.circular(.medium).getFont(size: 12)
+        label.fontTextStyle = .title3
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(hex: "e7e5e7")
@@ -129,7 +129,7 @@ final class IGStoryPreviewHeaderView: UIView {
     private let tagLabel: UILabel = {
         let label = UILabel()
         label.text = "4.9"
-        label.font = SmilesFonts.circular(.medium).getFont(size: 12)
+        label.fontTextStyle = .title3
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(hex: "e7e5e7")
