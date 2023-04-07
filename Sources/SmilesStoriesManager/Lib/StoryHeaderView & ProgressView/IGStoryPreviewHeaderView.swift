@@ -56,6 +56,7 @@ final class IGStoryPreviewHeaderView: UIView {
     }()
     private let snaperNameLabel: UILabel = {
         let label = UILabel()
+        label.fontTextStyle = .smilesHeadline5
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         return label
@@ -93,7 +94,7 @@ final class IGStoryPreviewHeaderView: UIView {
     private let promotionLabel: UILabel = {
         let label = UILabel()
         label.text = "Promotion"
-        label.fontTextStyle = .title3
+        label.fontTextStyle = .smilesTitle3
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(hex: "e7e5e7")
@@ -129,7 +130,7 @@ final class IGStoryPreviewHeaderView: UIView {
     private let tagLabel: UILabel = {
         let label = UILabel()
         label.text = "4.9"
-        label.fontTextStyle = .title3
+        label.fontTextStyle = .smilesTitle3
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(hex: "e7e5e7")
@@ -236,7 +237,7 @@ final class IGStoryPreviewHeaderView: UIView {
         NSLayoutConstraint.activate([
             ratingIcon.heightAnchor.constraint(equalToConstant: 12),
             ratingIcon.widthAnchor.constraint(equalToConstant: 12),
-            ratingView.widthAnchor.constraint(equalToConstant: 32),
+            ratingView.widthAnchor.constraint(greaterThanOrEqualToConstant: 32),
             separator.widthAnchor.constraint(equalToConstant: 2),
             separator.heightAnchor.constraint(equalToConstant: 12)
         ])

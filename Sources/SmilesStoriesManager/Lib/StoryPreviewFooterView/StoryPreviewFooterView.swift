@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 import SmilesLanguageManager
-import SmilesFontsManager
 import LottieAnimationManager
+import SmilesFontsManager
 
 class StoryPreviewFooterView: UIView {
     
@@ -44,7 +44,7 @@ class StoryPreviewFooterView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Title"
-        label.fontTextStyle = .title1
+        label.fontTextStyle = .smilesTitle1
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
@@ -80,7 +80,7 @@ class StoryPreviewFooterView: UIView {
     private let pointsLabel: UILabel = {
         let label = UILabel()
         label.text = "2000 PTS"
-        label.fontTextStyle = .label2
+        label.fontTextStyle = .smilesLabel2
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
@@ -90,7 +90,7 @@ class StoryPreviewFooterView: UIView {
     private let separatorLabel: UILabel = {
         let label = UILabel()
         label.text = "or"
-        label.fontTextStyle = .label2
+        label.fontTextStyle = .smilesLabel3
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(hex: "e9e9ec")
@@ -100,7 +100,7 @@ class StoryPreviewFooterView: UIView {
     private let amountLabel: UILabel = {
         let label = UILabel()
         label.text = "25 AED"
-        label.fontTextStyle = .label2
+        label.fontTextStyle = .smilesLabel2
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
@@ -110,7 +110,7 @@ class StoryPreviewFooterView: UIView {
     private let amountTrailingLabel: UILabel = {
         let label = UILabel()
         label.text = "onwards"
-        label.fontTextStyle = .label2
+        label.fontTextStyle = .smilesLabel3
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(hex: "e9e9ec")
@@ -121,7 +121,7 @@ class StoryPreviewFooterView: UIView {
     private lazy var availNowButton: UIButton = {
         let button = UIButton()
         button.setTitle("Avail now", for: .normal)
-        button.fontTextStyle = .title1
+        button.fontTextStyle = .smilesTitle1
         button.titleLabel?.textColor = .white
         button.backgroundColor = UIColor(hex: "75428e")
         button.translatesAutoresizingMaskIntoConstraints = false
