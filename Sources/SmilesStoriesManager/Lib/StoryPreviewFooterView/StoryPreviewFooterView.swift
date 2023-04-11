@@ -133,15 +133,24 @@ class StoryPreviewFooterView: UIView {
     private let buttonsStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
-        view.spacing = 10
-        view.alignment = .top
+        view.spacing = 7
+        view.alignment = .center
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let buttonsSubStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 20
+        view.alignment = .fill
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private lazy var shareButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "shareIcon"), for: .normal)
+        button.setImage(UIImage(named: "stroriesShareIcon"), for: .normal)
         button.setTitle("", for: .normal)
         button.backgroundColor = .clear
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -230,9 +239,11 @@ class StoryPreviewFooterView: UIView {
         detailsStackView.addArrangedSubview(titleLabel)
         detailsStackView.addArrangedSubview(costContainerView)
         
+        buttonsSubStackView.addArrangedSubview(shareButton)
+        buttonsSubStackView.addArrangedSubview(favouriteButton)
+        
         buttonsStackView.addArrangedSubview(availNowButton)
-        buttonsStackView.addArrangedSubview(shareButton)
-        buttonsStackView.addArrangedSubview(favouriteButton)
+        buttonsStackView.addArrangedSubview(buttonsSubStackView)
         
         mainStackView.addArrangedSubview(detailsStackView)
         mainStackView.addArrangedSubview(buttonsStackView)
@@ -248,6 +259,9 @@ class StoryPreviewFooterView: UIView {
         smileyPointsStackView.setCustomSpacing(12.0, after: pointsLabel)
         smileyPointsStackView.setCustomSpacing(12.0, after: separatorLabel)
         smileyPointsStackView.setCustomSpacing(4.0, after: amountLabel)
+        
+        favouriteButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        shareButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         
     }
     
@@ -299,8 +313,7 @@ class StoryPreviewFooterView: UIView {
         if let snap = story?.snaps?[snapIndex] {
             var image: UIImage?
             if snap.isFavorite ?? false {
-//                image = UIImage(named: "fvrtIconFilled")?.withTintColor(UIColor(hex: "EA5B6C"), renderingMode: .alwaysOriginal)
-                image = UIImage(named: "fvrtIconFilled")
+                image = UIImage(named: "fvrtIconFilled")?.withTintColor(UIColor(hex: "EA5B6C"), renderingMode: .alwaysOriginal)
             } else {
                 image = UIImage(named: "fvrtIcon")
             }
@@ -326,10 +339,10 @@ class StoryPreviewFooterView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            favouriteAnimationView.leadingAnchor.constraint(equalTo: favouriteButton.igLeadingAnchor, constant: -27),
-            favouriteAnimationView.trailingAnchor.constraint(equalTo: favouriteButton.igTrailingAnchor, constant: 27),
-            favouriteAnimationView.topAnchor.constraint(equalTo: favouriteButton.topAnchor, constant: -27),
-            favouriteAnimationView.bottomAnchor.constraint(equalTo: favouriteButton.igBottomAnchor, constant: 27)
+            favouriteAnimationView.leadingAnchor.constraint(equalTo: favouriteButton.igLeadingAnchor, constant: -23),
+            favouriteAnimationView.trailingAnchor.constraint(equalTo: favouriteButton.igTrailingAnchor, constant: 23),
+            favouriteAnimationView.topAnchor.constraint(equalTo: favouriteButton.topAnchor, constant: -23),
+            favouriteAnimationView.bottomAnchor.constraint(equalTo: favouriteButton.igBottomAnchor, constant: 23)
         ])
         
         NSLayoutConstraint.activate([

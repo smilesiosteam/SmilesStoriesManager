@@ -237,7 +237,7 @@ final class IGStoryPreviewHeaderView: UIView {
         NSLayoutConstraint.activate([
             ratingIcon.heightAnchor.constraint(equalToConstant: 12),
             ratingIcon.widthAnchor.constraint(equalToConstant: 12),
-            ratingView.widthAnchor.constraint(greaterThanOrEqualToConstant: 32),
+            ratingView.widthAnchor.constraint(equalToConstant: 32),
             separator.widthAnchor.constraint(equalToConstant: 2),
             separator.heightAnchor.constraint(equalToConstant: 12)
         ])
