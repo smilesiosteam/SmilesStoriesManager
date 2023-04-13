@@ -71,7 +71,7 @@ class StoryPreviewFooterView: UIView {
     
     private let pointsIcon: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "SmilesSmiley")
+        view.image = UIImage(named: "smileyHearts")
         view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -150,7 +150,7 @@ class StoryPreviewFooterView: UIView {
     
     private lazy var shareButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "stroriesShareIcon"), for: .normal)
+        button.setImage(UIImage(named: "shareIcon"), for: .normal)
         button.setTitle("", for: .normal)
         button.backgroundColor = .clear
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -259,9 +259,6 @@ class StoryPreviewFooterView: UIView {
         smileyPointsStackView.setCustomSpacing(12.0, after: pointsLabel)
         smileyPointsStackView.setCustomSpacing(12.0, after: separatorLabel)
         smileyPointsStackView.setCustomSpacing(4.0, after: amountLabel)
-        
-        favouriteButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
-        shareButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         
     }
     
