@@ -16,7 +16,6 @@ public class SmilesStoriesViewController: IGStoryPreviewController, StoryboardIn
     private let input: PassthroughSubject<StoriesViewModel.Input, Never> = .init()
     private var viewModel: StoriesViewModel!
     private var cancellables = Set<AnyCancellable>()
-    private var storyPreviewScene: IGStoryPreviewController?
     private var favoriteOperation = 0 // Operation 1 = add and Operation 2 = remove
     private var baseURL: String = ""
     private var shareURL: String = ""
