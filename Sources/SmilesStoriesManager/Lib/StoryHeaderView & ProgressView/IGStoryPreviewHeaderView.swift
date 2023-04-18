@@ -114,7 +114,7 @@ final class IGStoryPreviewHeaderView: UIView {
         view.axis = .horizontal
         view.spacing = 2
         view.alignment = .fill
-        view.distribution = .fill
+        view.distribution = .fillProportionally
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -237,7 +237,6 @@ final class IGStoryPreviewHeaderView: UIView {
         NSLayoutConstraint.activate([
             ratingIcon.heightAnchor.constraint(equalToConstant: 12),
             ratingIcon.widthAnchor.constraint(equalToConstant: 12),
-            ratingView.widthAnchor.constraint(equalToConstant: 32),
             separator.widthAnchor.constraint(equalToConstant: 2),
             separator.heightAnchor.constraint(equalToConstant: 12)
         ])

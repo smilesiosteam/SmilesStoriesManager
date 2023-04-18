@@ -133,17 +133,8 @@ class StoryPreviewFooterView: UIView {
     private let buttonsStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
-        view.spacing = 7
+        view.spacing = 8
         view.alignment = .center
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private let buttonsSubStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
-        view.spacing = 20
-        view.alignment = .fill
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -181,7 +172,7 @@ class StoryPreviewFooterView: UIView {
     var infoButtonAction = {}
     var shareButtonAction = {}
     var favouriteButtonAction = {}
-    private var bottomButtonHeight: CGFloat = 32
+    private var bottomButtonHeight: CGFloat = 40
     var snapIndex = 0 {
         didSet{
             updateUI()
@@ -216,7 +207,7 @@ class StoryPreviewFooterView: UIView {
     
     private func showFavouriteAnimation() {
         
-        LottieAnimationManager.showAnimation(onView: favouriteAnimationView, withJsonFileName: "Heart") { [weak self] isCompleted in
+        LottieAnimationManager.showAnimation(onView: favouriteButton, withJsonFileName: "Heart") { [weak self] isCompleted in
             self?.setFavouriteIcon()
         }
         
@@ -239,11 +230,9 @@ class StoryPreviewFooterView: UIView {
         detailsStackView.addArrangedSubview(titleLabel)
         detailsStackView.addArrangedSubview(costContainerView)
         
-        buttonsSubStackView.addArrangedSubview(shareButton)
-        buttonsSubStackView.addArrangedSubview(favouriteButton)
-        
         buttonsStackView.addArrangedSubview(availNowButton)
-        buttonsStackView.addArrangedSubview(buttonsSubStackView)
+        buttonsStackView.addArrangedSubview(shareButton)
+        buttonsStackView.addArrangedSubview(favouriteButton)
         
         mainStackView.addArrangedSubview(detailsStackView)
         mainStackView.addArrangedSubview(buttonsStackView)
@@ -310,7 +299,7 @@ class StoryPreviewFooterView: UIView {
         if let snap = story?.snaps?[snapIndex] {
             var image: UIImage?
             if snap.isFavorite ?? false {
-                image = UIImage(named: "fvrtIconFilled")?.withTintColor(UIColor(hex: "EA5B6C"), renderingMode: .alwaysOriginal)
+                image = UIImage(named: "fvrtIconFilled")
             } else {
                 image = UIImage(named: "fvrtIcon")
             }
