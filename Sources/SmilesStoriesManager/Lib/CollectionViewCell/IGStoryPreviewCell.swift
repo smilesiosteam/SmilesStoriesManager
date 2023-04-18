@@ -278,6 +278,11 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
         }
         return snapView
     }
+    
+    func removeObserver(){
+        NotificationCenter.default.removeObserver(self)
+    }
+
     private func getSnapview() -> UIImageView? {
         if let imageView = scrollview.subviews.filter({$0.tag == snapIndex + snapViewTagIndicator}).first as? UIImageView {
             return imageView

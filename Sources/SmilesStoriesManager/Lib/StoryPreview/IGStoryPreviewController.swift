@@ -370,6 +370,7 @@ extension IGStoryPreviewController: StoryPreviewProtocol {
         }
     }
     func dismiss() {
+        currentCell?.removeObserver()
         self.dismiss(animated: true)
     }
     func setFavourite(wishlistResponse: StoriesWishListResponseModel, operation: Int) {
