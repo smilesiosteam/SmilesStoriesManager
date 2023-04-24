@@ -207,6 +207,7 @@ class StoryPreviewFooterView: UIView {
     
     private func showFavouriteAnimation() {
         
+        favouriteButton.setImage(nil, for: .normal)
         LottieAnimationManager.showAnimation(onView: favouriteButton, withJsonFileName: "Heart") { [weak self] isCompleted in
             self?.setFavouriteIcon()
         }
