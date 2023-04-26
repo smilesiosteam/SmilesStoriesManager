@@ -34,7 +34,7 @@ class StoryPreviewFooterView: UIView {
     private let detailsStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 8
+        view.spacing = 12
         view.alignment = .fill
         view.distribution = .fill
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -322,7 +322,7 @@ class StoryPreviewFooterView: UIView {
             mainStackView.leadingAnchor.constraint(equalTo: detailsView.igLeadingAnchor, constant: 16),
             mainStackView.trailingAnchor.constraint(equalTo: detailsView.igTrailingAnchor, constant: -16),
             mainStackView.bottomAnchor.constraint(equalTo: detailsView.igBottomAnchor, constant: -8),
-            mainStackView.topAnchor.constraint(equalTo: detailsView.igTopAnchor, constant: 14)
+            mainStackView.topAnchor.constraint(equalTo: detailsView.igTopAnchor, constant: 18)
         ])
         
         NSLayoutConstraint.activate([

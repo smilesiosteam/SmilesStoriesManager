@@ -250,7 +250,7 @@ final class IGStoryPreviewHeaderView: UIView {
         layer.shadowRadius = 1
     }
     private func applyProperties<T: UIView>(_ view: T, with tag: Int? = nil, alpha: CGFloat = 1.0) -> T {
-        view.layer.cornerRadius = 1
+        view.layer.cornerRadius = 2
         view.layer.masksToBounds = true
         view.backgroundColor = UIColor.white.withAlphaComponent(alpha)
         if let tagValue = tag {
