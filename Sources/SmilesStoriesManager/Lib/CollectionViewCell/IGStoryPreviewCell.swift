@@ -247,9 +247,8 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
         
     }
     private func createSnapView() -> UIImageView {
-        let snapView = StoriesUIImageView()
-        snapView.contentMode = .scaleAspectFit
-        snapView.alignment = .top
+        let snapView = UIImageView()
+        snapView.contentMode = .scaleAspectFill
         snapView.translatesAutoresizingMaskIntoConstraints = false
         snapView.tag = snapIndex + snapViewTagIndicator
         snapView.backgroundColor = .black

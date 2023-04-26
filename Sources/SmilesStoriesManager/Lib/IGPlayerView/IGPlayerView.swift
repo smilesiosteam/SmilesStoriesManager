@@ -79,7 +79,7 @@ class IGPlayerView: UIView {
             playerTimeControlStatusObserver = player?.observe(\AVPlayer.timeControlStatus, options: [.new, .initial], changeHandler: { [weak self] (player, _) in
                 guard let strongSelf = self else { return }
                 if player.timeControlStatus == .playing {
-                    self?.playerLayer?.frame = CGRect(x: strongSelf.bounds.origin.x, y: strongSelf.bounds.origin.y, width: strongSelf.bounds.size.width, height: strongSelf.playerLayer?.videoRect.height ?? 0.0)
+                    self?.playerLayer?.frame = CGRect(x: strongSelf.bounds.origin.x, y: strongSelf.bounds.origin.y, width: strongSelf.bounds.size.width, height: strongSelf.bounds.size.height)
                     strongSelf.layoutIfNeeded()
                     //Started Playing
                     strongSelf.activityIndicator.stopAnimating()
@@ -109,13 +109,13 @@ class IGPlayerView: UIView {
     
     //MARK:- Init methods
     override init(frame: CGRect) {
-        activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+        activityIndicator = UIActivityIndicatorView(style: .large)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         super.init(frame: frame)
         setupActivityIndicator()
     }
     required init?(coder aDecoder: NSCoder) {
-        activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+        activityIndicator = UIActivityIndicatorView(style: .large)
         super.init(coder: aDecoder)
         setupActivityIndicator()
     }
@@ -195,7 +195,7 @@ extension IGPlayerView: PlayerControls {
             playerLayer = AVPlayerLayer(player: player)
             setupPlayerPeriodicTimeObserver()
             if let pLayer = playerLayer {
-                pLayer.videoGravity = .resizeAspect
+                pLayer.videoGravity = .resizeAspectFill
                 pLayer.frame = self.bounds
                 self.layer.addSublayer(pLayer)
             }
