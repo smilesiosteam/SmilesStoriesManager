@@ -583,7 +583,7 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
     func startProgressors() {
         DispatchQueue.main.async {
             if self.scrollview.subviews.count > 0 {
-                let imageView = self.scrollview.subviews.filter{v in v.tag == self.snapIndex + snapViewTagIndicator}.first as? UIImageView
+//                let imageView = self.scrollview.subviews.filter{v in v.tag == self.snapIndex + snapViewTagIndicator}.first as? UIImageView
                 // Didend displaying will call this startProgressors method. After that only isCompletelyVisible get true. Then we have to start the video if that snap contains video.
                 guard self.story?.isCompletelyVisible ?? false else {return}
                 if self.story?.snaps?[self.snapIndex].type == .video {
@@ -678,6 +678,9 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
         storyHeaderView.createSnapProgressors()
         fillUpMissingImageViews(sIndex)
         fillupLastPlayedSnaps(sIndex)
+        if let snapsCount = story?.snaps?.count, sIndex == (snapsCount - 1) {
+            story?.isCompletelyVisible = true
+        }
         snapIndex = sIndex
         handpickedSnapIndex = sIndex
         //Remove the previous observors
