@@ -31,9 +31,11 @@ class StoriesViewModel: NSObject {
     private var cancellables = Set<AnyCancellable>()
     private var stories: Stories?
     private var baseURL: String
+    private var isGuestUser: Bool
     
-    init(baseURL: String) {
+    init(baseURL: String, isGuestUser: Bool) {
         self.baseURL = baseURL
+        self.isGuestUser = isGuestUser
     }
     
 }
@@ -48,7 +50,7 @@ extension StoriesViewModel {
             self.output.send(.showHideLoader(shouldShow: true))
             switch event {
             case .getStories(let categoryId):
-                SmilesStoriesHandler.shared.getStories(categoryId: categoryId, baseURL: self.baseURL) { stories in
+                SmilesStoriesHandler.shared.getStories(categoryId: categoryId, baseURL: self.baseURL, isGuestUser: self.isGuestUser) { stories in
                     self.output.send(.showHideLoader(shouldShow: false))
                     self.stories = stories
                     self.output.send(.fetchStoriesDidSucceed(response: stories))

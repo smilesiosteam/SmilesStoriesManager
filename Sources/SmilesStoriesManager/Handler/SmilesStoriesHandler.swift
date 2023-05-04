@@ -16,9 +16,9 @@ open class SmilesStoriesHandler {
     
     private var cancellables = Set<AnyCancellable>()
     
-    public func getStories(categoryId:Int, baseURL: String, success: @escaping (Stories) -> Void, failure: @escaping (NetworkError) -> Void) {
+    public func getStories(categoryId: Int, baseURL: String, isGuestUser: Bool, success: @escaping (Stories) -> Void, failure: @escaping (NetworkError) -> Void) {
         let storiesRequest = StoriesRequestModel(
-            categoryId: categoryId
+            categoryId: categoryId, isGuestUser: isGuestUser
         )
         
         let service = SmilesGetStoriesRepository(

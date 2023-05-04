@@ -38,6 +38,7 @@ public class IGStoryPreviewController: UIViewController, UIGestureRecognizerDele
     
     public var primaryButtonAction: ((Int,Int) -> Void)? = nil
     public var infoButtonAction: ((Int,Int) -> Void)? = nil
+    public var favouriteAction: ((Int,Int) -> Void)? = nil
     
     
     private let dismissGesture: UISwipeGestureRecognizer = {
@@ -209,6 +210,7 @@ extension IGStoryPreviewController:UICollectionViewDataSource {
         }
         cell.favouriteButtonAction = { sInd in
             self.favouriteButtonPressed(snapIndex: sInd, storyIndex: self.nStoryIndex)
+            self.favouriteAction?(sInd, self.nStoryIndex)
         }
         
         return cell

@@ -20,14 +20,16 @@ public class SmilesStoriesViewController: IGStoryPreviewController, StoryboardIn
     private var baseURL: String = ""
     private var shareURL: String = ""
     public var favouriteUpdatedCallback: ((_ storyIndex:Int,_ snapIndex:Int,_ isFavourite:Bool) -> Void)? = nil
+    public var isGuestUser: Bool = false
     
     // MARK: -- View LifeCycle
-    public init?(favoriteOperation: Int = 0, baseURL: String, stories: [Story],handPickedStoryIndex: Int, handPickedSnapIndex: Int = 0, shareURL: String) {
+    public init?(favoriteOperation: Int = 0, baseURL: String, stories: [Story],handPickedStoryIndex: Int, handPickedSnapIndex: Int = 0, shareURL: String, isGuestUser: Bool) {
         super.init(stories: stories, handPickedStoryIndex: handPickedStoryIndex, handPickedSnapIndex: handPickedSnapIndex)
         self.favoriteOperation = favoriteOperation
         self.baseURL = baseURL
         self.shareURL = shareURL
-        viewModel = StoriesViewModel(baseURL: baseURL)
+        self.isGuestUser = isGuestUser
+        viewModel = StoriesViewModel(baseURL: baseURL, isGuestUser: isGuestUser)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -84,14 +86,16 @@ public class SmilesStoriesViewController: IGStoryPreviewController, StoryboardIn
     }
     
     override func favouriteButtonPressed(snapIndex: Int, storyIndex: Int) {
-        if let snap = currentSelectedStory()?.snaps?[snapIndex] {
-            if let id = snap.uniqueIdentifier {
-                favoriteOperation = (snap.isFavorite ?? false) ? 2 : 1
-                self.pause()
-                if !snap.isOfferStory {
-                    input.send(.updateRestaurantWishlistStatus(operation: favoriteOperation, restaurantId: "\(id)"))
-                } else {
-                    input.send(.updateOfferWishlistStatus(operation: favoriteOperation, offerId: "\(id)"))
+        if !isGuestUser {
+            if let snap = currentSelectedStory()?.snaps?[snapIndex] {
+                if let id = snap.uniqueIdentifier {
+                    favoriteOperation = (snap.isFavorite ?? false) ? 2 : 1
+                    self.pause()
+                    if !snap.isOfferStory {
+                        input.send(.updateRestaurantWishlistStatus(operation: favoriteOperation, restaurantId: "\(id)"))
+                    } else {
+                        input.send(.updateOfferWishlistStatus(operation: favoriteOperation, offerId: "\(id)"))
+                    }
                 }
             }
         }

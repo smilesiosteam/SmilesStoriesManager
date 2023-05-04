@@ -15,9 +15,11 @@ class StoriesRequestModel: SmilesBaseMainRequest {
 
     // MARK: - Model Variables
     var categoryId: Int?
-    init(categoryId: Int?) {
+    var isGuestUser: Bool?
+    init(categoryId: Int?, isGuestUser: Bool? ) {
         super.init()
         self.categoryId = categoryId
+        self.isGuestUser = isGuestUser
     }
     
     required init(from decoder: Decoder) throws {
@@ -27,12 +29,14 @@ class StoriesRequestModel: SmilesBaseMainRequest {
     // MARK: - Model Keys
     enum CodingKeys: CodingKey {
         case categoryId
+        case isGuestUser
     }
 
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(self.categoryId, forKey: .categoryId)
+        try container.encodeIfPresent(self.isGuestUser, forKey: .isGuestUser)
     }
     
     
