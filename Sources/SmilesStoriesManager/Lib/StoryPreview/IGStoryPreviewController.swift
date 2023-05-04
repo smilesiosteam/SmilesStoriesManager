@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SmilesLanguageManager
 /**Road-Map: Story(CollectionView)->Cell(ScrollView(nImageViews:Snaps))
  If Story.Starts -> Snap.Index(Captured|StartsWith.0)
  While Snap.done->Next.snap(continues)->done
@@ -104,7 +104,9 @@ public class IGStoryPreviewController: UIViewController, UIGestureRecognizerDele
                 self._view.snapsCollectionView.delegate = self
                 self._view.snapsCollectionView.dataSource = self
                 let indexPath = IndexPath(item: self.handPickedStoryIndex, section: 0)
-                self._view.snapsCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+                OperationQueue.main.addOperation {
+                    self._view.snapsCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)                    
+                }
                 self.handPickedStoryIndex = 0
                 self.executeOnce = true
             }
@@ -322,14 +324,15 @@ extension IGStoryPreviewController {
         let sortedVCells = _view.snapsCollectionView.visibleCells.sortedArrayByPosition()
         guard let f_Cell = sortedVCells.first as? IGStoryPreviewCell else {return}
         guard let l_Cell = sortedVCells.last as? IGStoryPreviewCell else {return}
-        let f_IndexPath = _view.snapsCollectionView.indexPath(for: f_Cell)
-        let l_IndexPath = _view.snapsCollectionView.indexPath(for: l_Cell)
+        var f_IndexPath = _view.snapsCollectionView.indexPath(for: f_Cell)
+        var l_IndexPath = _view.snapsCollectionView.indexPath(for: l_Cell)
         let numberOfItems = collectionView(_view.snapsCollectionView, numberOfItemsInSection: 0)-1
-        if l_IndexPath?.item == 0 {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.2) {
-                self.dismiss()
-            }
-        }else if f_IndexPath?.item == numberOfItems {
+        if SmilesLanguageManager.shared.currentLanguage == .ar {
+            let ind = f_IndexPath
+            f_IndexPath = l_IndexPath
+            l_IndexPath = ind
+        }
+        if l_IndexPath?.item == 0 || f_IndexPath?.item == numberOfItems {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.2) {
                 self.dismiss()
             }
@@ -350,7 +353,9 @@ extension IGStoryPreviewController: StoryPreviewProtocol {
             nStoryIndex = nStoryIndex + 1
             let nIndexPath = IndexPath.init(row: nStoryIndex, section: 0)
             //_view.snapsCollectionView.layer.speed = 0;
-            _view.snapsCollectionView.scrollToItem(at: nIndexPath, at: .right, animated: true)
+            OperationQueue.main.addOperation {
+                self._view.snapsCollectionView.scrollToItem(at: nIndexPath, at: .right, animated: true)
+            }
             /**@Note:
              Here we are navigating to next snap explictly, So we need to handle the isCompletelyVisible. With help of this Bool variable we are requesting snap. Otherwise cell wont get Image as well as the Progress move :P
              */
@@ -365,7 +370,9 @@ extension IGStoryPreviewController: StoryPreviewProtocol {
             story_copy = stories[nStoryIndex+handPickedStoryIndex]
             nStoryIndex = nStoryIndex - 1
             let nIndexPath = IndexPath.init(row: nStoryIndex, section: 0)
-            _view.snapsCollectionView.scrollToItem(at: nIndexPath, at: .left, animated: true)
+            OperationQueue.main.addOperation {
+                self._view.snapsCollectionView.scrollToItem(at: nIndexPath, at: .left, animated: true)
+            }
         } else {
             self.dismiss()
         }
