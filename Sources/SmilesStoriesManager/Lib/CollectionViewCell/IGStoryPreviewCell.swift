@@ -678,9 +678,6 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
         storyHeaderView.createSnapProgressors()
         fillUpMissingImageViews(sIndex)
         fillupLastPlayedSnaps(sIndex)
-        if let snapsCount = story?.snaps?.count, sIndex == (snapsCount - 1) {
-            story?.isCompletelyVisible = true
-        }
         snapIndex = sIndex
         handpickedSnapIndex = sIndex
         //Remove the previous observors
