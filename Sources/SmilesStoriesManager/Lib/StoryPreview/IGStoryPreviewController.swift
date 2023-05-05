@@ -267,6 +267,8 @@ extension IGStoryPreviewController: UICollectionViewDelegate {
             }
             if let snap = vCell.story?.snaps?[vCell.snapIndex], (IGVideoCacheManager.shared.fileExists(for: snap.mediaUrl) || IGCache.shared.object(forKey: snap.mediaUrl as AnyObject)  != nil) {
                 vCell.startProgressors()
+            }else if let snapsCount = vCell.story?.snaps?.count, vCell.snapIndex == (snapsCount - 1) {
+                vCell.snapIndex = snapsCount - 1 // will start downloading for last cell only
             }
         }
         if vCellIndexPath.item == nStoryIndex {
