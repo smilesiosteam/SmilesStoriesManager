@@ -104,6 +104,7 @@ public class IGStoryPreviewController: UIViewController, UIGestureRecognizerDele
                 self._view.snapsCollectionView.delegate = self
                 self._view.snapsCollectionView.dataSource = self
                 let indexPath = IndexPath(item: self.handPickedStoryIndex, section: 0)
+                self._view.snapsCollectionView.layoutIfNeeded()
                 self._view.snapsCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
                 self.handPickedStoryIndex = 0
                 self.executeOnce = true
