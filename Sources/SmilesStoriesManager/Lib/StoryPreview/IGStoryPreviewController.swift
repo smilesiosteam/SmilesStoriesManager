@@ -354,9 +354,7 @@ extension IGStoryPreviewController: StoryPreviewProtocol {
             nStoryIndex = nStoryIndex + 1
             let nIndexPath = IndexPath.init(row: nStoryIndex, section: 0)
             //_view.snapsCollectionView.layer.speed = 0;
-            OperationQueue.main.addOperation {
-                self._view.snapsCollectionView.scrollToItem(at: nIndexPath, at: .right, animated: true)
-            }
+            self._view.snapsCollectionView.scrollToItem(at: nIndexPath, at: .right, animated: true)
             /**@Note:
              Here we are navigating to next snap explictly, So we need to handle the isCompletelyVisible. With help of this Bool variable we are requesting snap. Otherwise cell wont get Image as well as the Progress move :P
              */
@@ -371,9 +369,7 @@ extension IGStoryPreviewController: StoryPreviewProtocol {
             story_copy = stories[nStoryIndex+handPickedStoryIndex]
             nStoryIndex = nStoryIndex - 1
             let nIndexPath = IndexPath.init(row: nStoryIndex, section: 0)
-            OperationQueue.main.addOperation {
-                self._view.snapsCollectionView.scrollToItem(at: nIndexPath, at: .left, animated: true)
-            }
+            self._view.snapsCollectionView.scrollToItem(at: nIndexPath, at: .left, animated: true)
         } else {
             self.dismiss()
         }
