@@ -24,6 +24,7 @@ protocol ViewAnimator {
 extension ViewAnimator where Self: IGSnapProgressView {
     func start(with duration: TimeInterval, holderView: UIView, completion: @escaping (_ storyIdentifier: String, _ snapIndex: Int, _ isCancelledAbruptly: Bool) -> Void) {
         // Modifying the existing widthConstraint and setting the width equalTo holderView's widthAchor
+        guard state != .running else {return}
         self.state = .running
         self.widthConstraint?.isActive = false
         self.widthConstraint = self.widthAnchor.constraint(equalToConstant: 0)

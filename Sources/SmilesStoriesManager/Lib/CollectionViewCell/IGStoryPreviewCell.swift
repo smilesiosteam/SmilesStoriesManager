@@ -564,37 +564,33 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
             let progressView = getProgressView(with: snapIndex){
             progressView.story_identifier = self.story?.storyID
             progressView.snapIndex = snapIndex
-            DispatchQueue.main.async {
-                if type == .image || type == .animation{
-                    progressView.start(with: self.story?.snaps?[self.snapIndex].length?.double ?? 5.0, holderView: holderView, completion: {(identifier, snapIndex, isCancelledAbruptly) in
-                        print("Completed snapindex: \(snapIndex)")
-                        if isCancelledAbruptly == false {
-                            self.didCompleteProgress()
-                        }
-                    })
-                }else {
-                    //Handled in delegate methods for videos
-                }
+            if type == .image || type == .animation{
+                progressView.start(with: self.story?.snaps?[self.snapIndex].length?.double ?? 5.0, holderView: holderView, completion: {(identifier, snapIndex, isCancelledAbruptly) in
+                    print("Completed snapindex: \(snapIndex)")
+                    if isCancelledAbruptly == false {
+                        self.didCompleteProgress()
+                    }
+                })
+            }else {
+                //Handled in delegate methods for videos
             }
         }
     }
     
     //MARK:- Internal functions
     func startProgressors() {
-        DispatchQueue.main.async {
-            if self.scrollview.subviews.count > 0 {
-//                let imageView = self.scrollview.subviews.filter{v in v.tag == self.snapIndex + snapViewTagIndicator}.first as? UIImageView
-                // Didend displaying will call this startProgressors method. After that only isCompletelyVisible get true. Then we have to start the video if that snap contains video.
-                guard self.story?.isCompletelyVisible ?? false else {return}
-                if self.story?.snaps?[self.snapIndex].type == .video {
-                    let videoView = self.scrollview.subviews.filter{v in v.tag == self.snapIndex + snapViewTagIndicator}.first as? IGPlayerView
-                    let snap = self.story?.snaps?[self.snapIndex]
-                    if let vv = videoView, self.story?.isCompletelyVisible == true {
-                        self.startPlayer(videoView: vv, with: snap!.mediaUrl)
-                    }
-                }else{
-                    self.gearupTheProgressors(type:self.story?.snaps?[self.snapIndex].type ?? .unknown)
+        if self.scrollview.subviews.count > 0 {
+            //                let imageView = self.scrollview.subviews.filter{v in v.tag == self.snapIndex + snapViewTagIndicator}.first as? UIImageView
+            // Didend displaying will call this startProgressors method. After that only isCompletelyVisible get true. Then we have to start the video if that snap contains video.
+            guard self.story?.isCompletelyVisible ?? false else {return}
+            if self.story?.snaps?[self.snapIndex].type == .video {
+                let videoView = self.scrollview.subviews.filter{v in v.tag == self.snapIndex + snapViewTagIndicator}.first as? IGPlayerView
+                let snap = self.story?.snaps?[self.snapIndex]
+                if let vv = videoView, self.story?.isCompletelyVisible == true {
+                    self.startPlayer(videoView: vv, with: snap!.mediaUrl)
                 }
+            }else{
+                self.gearupTheProgressors(type:self.story?.snaps?[self.snapIndex].type ?? .unknown)
             }
         }
     }
