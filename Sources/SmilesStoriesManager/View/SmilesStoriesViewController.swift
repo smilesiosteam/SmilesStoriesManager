@@ -61,12 +61,11 @@ public class SmilesStoriesViewController: IGStoryPreviewController, StoryboardIn
                         self?.dismiss()
                     }
                 case .showHideLoader(let shouldShow):
-                    break
-//                    if shouldShow {
-//                        SmilesLoader.show()
-//                    } else {
-//                        SmilesLoader.dismiss()
-//                    }
+                    if shouldShow {
+                        SmilesLoader.show(isClearBackground: true)
+                    } else {
+                        SmilesLoader.dismiss()
+                    }
                 }
             }
             .store(in: &cancellables)

@@ -9,6 +9,7 @@
 import UIKit
 import AVKit
 import AVFoundation
+import SmilesLoader
 
 struct VideoResource {
     let filePath: String
@@ -57,7 +58,7 @@ class IGPlayerView: UIView {
             playerItemStatusObserver = playerItem?.observe(\AVPlayerItem.status, options: [.new, .initial], changeHandler: { [weak self] (item, _) in
                 guard let strongSelf = self else { return }
                 if item.status == .failed {
-                    strongSelf.activityIndicator.stopAnimating()
+                    strongSelf.stopAnimating()
                     if let item = strongSelf.player?.currentItem, let error = item.error, let url = item.asset as? AVURLAsset {
                         strongSelf.playerObserverDelegate?.didFailed(withError: error.localizedDescription, for: url.url)
                     } else {
@@ -82,7 +83,7 @@ class IGPlayerView: UIView {
                     self?.playerLayer?.frame = CGRect(x: strongSelf.bounds.origin.x, y: strongSelf.bounds.origin.y, width: strongSelf.bounds.size.width, height: strongSelf.bounds.size.height)
                     strongSelf.layoutIfNeeded()
                     //Started Playing
-                    strongSelf.activityIndicator.stopAnimating()
+                    strongSelf.stopAnimating()
                     strongSelf.playerObserverDelegate?.didStartPlaying()
                 } else if player.timeControlStatus == .paused {
                     // player paused
@@ -95,7 +96,6 @@ class IGPlayerView: UIView {
     var error: Error? {
         return player?.currentItem?.error
     }
-    var activityIndicator: UIActivityIndicatorView!
     
     var currentItem: AVPlayerItem? {
         return player?.currentItem
@@ -109,13 +109,10 @@ class IGPlayerView: UIView {
     
     //MARK:- Init methods
     override init(frame: CGRect) {
-        activityIndicator = UIActivityIndicatorView(style: .large)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         super.init(frame: frame)
         setupActivityIndicator()
     }
     required init?(coder aDecoder: NSCoder) {
-        activityIndicator = UIActivityIndicatorView(style: .large)
         super.init(coder: aDecoder)
         setupActivityIndicator()
     }
@@ -130,21 +127,14 @@ class IGPlayerView: UIView {
     
     // MARK: - Internal methods
     func setupActivityIndicator() {
-        activityIndicator.hidesWhenStopped = true
         //backgroundColor = UIColor.rgb(from: 0xEDF0F1)
         backgroundColor = .black
-        self.addSubview(activityIndicator)
-        NSLayoutConstraint.activate([
-            activityIndicator.igCenterXAnchor.constraint(equalTo: self.igCenterXAnchor),
-            activityIndicator.igCenterYAnchor.constraint(equalTo: self.igCenterYAnchor)
-            ])
     }
     func startAnimating() {
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
+        SmilesLoader.show(on: self)
     }
     func stopAnimating() {
-        activityIndicator.startAnimating()
+        SmilesLoader.dismiss(from: self)
     }
     func removeObservers() {
         cleanUpPlayerPeriodicTimeObserver()

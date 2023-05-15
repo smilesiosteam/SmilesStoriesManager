@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SmilesLoader
 
 extension UIImageView {
 
@@ -83,46 +84,57 @@ extension UIImageView {
     //MARK: - Private methods
     func showActivityIndicator() {
         if isActivityEnabled {
-            var isActivityIndicatorFound = false
-            DispatchQueue.main.async {
-//                self.backgroundColor = .black
-                self.activityIndicator = UIActivityIndicatorView(style: self.activityStyle)
-                self.activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-                if self.subviews.isEmpty {
-                    isActivityIndicatorFound = false
-                    self.addSubview(self.activityIndicator)
-                    
-                } else {
-                    for view in self.subviews {
-                        if !view.isKind(of: UIActivityIndicatorView.self) {
-                            isActivityIndicatorFound = false
-                            self.addSubview(self.activityIndicator)
-                            break
-                        } else {
-                            isActivityIndicatorFound = true
+            if activityStyle == .medium {
+                var isActivityIndicatorFound = false
+                DispatchQueue.main.async {
+    //                self.backgroundColor = .black
+                    self.activityIndicator = UIActivityIndicatorView(style: self.activityStyle)
+                    self.activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+                    if self.subviews.isEmpty {
+                        isActivityIndicatorFound = false
+                        self.addSubview(self.activityIndicator)
+                        
+                    } else {
+                        for view in self.subviews {
+                            if !view.isKind(of: UIActivityIndicatorView.self) {
+                                isActivityIndicatorFound = false
+                                self.addSubview(self.activityIndicator)
+                                break
+                            } else {
+                                isActivityIndicatorFound = true
+                            }
                         }
                     }
+                    if !isActivityIndicatorFound {
+                        NSLayoutConstraint.activate([
+                            self.activityIndicator.igCenterXAnchor.constraint(equalTo: self.igCenterXAnchor),
+                            self.activityIndicator.igCenterYAnchor.constraint(equalTo: self.igCenterYAnchor)
+                            ])
+                    }
+                    self.activityIndicator.startAnimating()
                 }
-                if !isActivityIndicatorFound {
-                    NSLayoutConstraint.activate([
-                        self.activityIndicator.igCenterXAnchor.constraint(equalTo: self.igCenterXAnchor),
-                        self.activityIndicator.igCenterYAnchor.constraint(equalTo: self.igCenterYAnchor)
-                        ])
+            } else {
+                DispatchQueue.main.async {
+                    SmilesLoader.show(on: self)
                 }
-                self.activityIndicator.startAnimating()
             }
         }
     }
     
     func hideActivityIndicator() {
         if isActivityEnabled {
-            DispatchQueue.main.async {
-//                self.backgroundColor = UIColor.white
-                self.subviews.forEach({ (view) in
-                    if let av = view as? UIActivityIndicatorView {
-                        av.stopAnimating()
-                    }
-                })
+            if activityStyle == .medium {
+                DispatchQueue.main.async {
+                    self.subviews.forEach({ (view) in
+                        if let av = view as? UIActivityIndicatorView {
+                            av.stopAnimating()
+                        }
+                    })
+                }
+            } else {
+                DispatchQueue.main.async {
+                    SmilesLoader.dismiss(from: self)
+                }
             }
         }
     }
