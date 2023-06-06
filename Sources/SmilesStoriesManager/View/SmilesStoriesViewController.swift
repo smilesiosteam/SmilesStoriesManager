@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import SmilesLoader
 import SmilesLanguageManager
+import SmilesUtilities
 
 public class SmilesStoriesViewController: IGStoryPreviewController, StoryboardInstantiable {
     
@@ -61,12 +62,11 @@ public class SmilesStoriesViewController: IGStoryPreviewController, StoryboardIn
                         self?.dismiss()
                     }
                 case .showHideLoader(let shouldShow):
-                    break
-//                    if shouldShow {
-//                        SmilesLoader.show()
-//                    } else {
-//                        SmilesLoader.dismiss()
-//                    }
+                    if shouldShow {
+                        SmilesLoader.show(isClearBackground: true)
+                    } else {
+                        SmilesLoader.dismiss()
+                    }
                 }
             }
             .store(in: &cancellables)
@@ -76,13 +76,6 @@ public class SmilesStoriesViewController: IGStoryPreviewController, StoryboardIn
         if let snap = currentSelectedStory()?.snaps?[snapIndex],let _ = snap.uniqueIdentifier {
             self.favouriteUpdatedCallback?(storyIndex,snapIndex,snap.isFavorite ?? false)
         }
-    }
-    
-    func showAlertWithOkayOnly(message: String, title: String = "", completion: ((UIAlertAction) -> Void)? = nil) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let OKAction = UIAlertAction(title: SmilesLanguageManager.shared.getLocalizedString(for: "OK"), style: .default, handler: completion)
-        alertController.addAction(OKAction)
-        present(alertController, animated: true, completion: nil)
     }
     
     override func favouriteButtonPressed(snapIndex: Int, storyIndex: Int) {

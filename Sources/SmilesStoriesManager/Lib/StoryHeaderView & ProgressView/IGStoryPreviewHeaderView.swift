@@ -32,7 +32,7 @@ final class IGStoryPreviewHeaderView: UIView {
     
     public var story:Story? {
         didSet {
-            snapsPerStory  = (story?.snaps?.count)! < maxSnaps ? (story?.snaps?.count)! : maxSnaps
+            snapsPerStory  = (story?.snaps?.count ?? 0) < maxSnaps ? (story?.snaps?.count ?? 0) : maxSnaps
         }
     }
     fileprivate var progressView: UIView?

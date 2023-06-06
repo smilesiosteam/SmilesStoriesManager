@@ -65,7 +65,7 @@ public struct StorySnap: Codable {
     var offerType: String?
     
     var isOfferStory:Bool{
-        return points != nil && cost != nil && promotionText == nil
+        return (uniqueIdentifier ?? "").contains("OF_")
     }
     mutating func setFavourite(_ isFavorite:Bool){
         self.isFavorite = isFavorite
