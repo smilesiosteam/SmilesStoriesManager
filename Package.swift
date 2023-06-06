@@ -34,6 +34,10 @@ let package = Package(
                 .product(name: "SmilesLanguageManager", package: "SmilesLanguageManager"),
                 .product(name: "SmilesFontsManager", package: "SmilesFontsManager"),
                 .product(name: "LottieAnimationManager", package: "LottieAnimationManager")
-            ])
+            ],
+            resources: [.copy("Stories.json")]),
+        .testTarget(
+            name: "SmilesStoriesManagerTests",
+            dependencies: ["SmilesStoriesManager"]),
     ]
 )

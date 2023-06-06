@@ -10,16 +10,16 @@ import Foundation
 import Combine
 import NetworkingLayer
 
-class StoriesViewModel: NSObject {
+public class StoriesViewModel: NSObject {
     
     // MARK: - INPUT. View event methods
-    enum Input {
+    public enum Input {
         case getStories(categoryId:Int)
         case updateRestaurantWishlistStatus(operation: Int, restaurantId: String)
         case updateOfferWishlistStatus(operation: Int, offerId: String)
     }
     
-    enum Output {
+    public enum Output {
         case fetchStoriesDidSucceed(response: Stories)
         case updateWishlistStatusDidSucceed(response: StoriesWishListResponseModel)
         case fetchDidFail(error: Error)
@@ -29,11 +29,11 @@ class StoriesViewModel: NSObject {
     // MARK: -- Variables
     private var output: PassthroughSubject<Output, Never> = .init()
     private var cancellables = Set<AnyCancellable>()
-    private var stories: Stories?
+    public var stories: Stories?
     private var baseURL: String
     private var isGuestUser: Bool
     
-    init(baseURL: String, isGuestUser: Bool) {
+    public init(baseURL: String, isGuestUser: Bool) {
         self.baseURL = baseURL
         self.isGuestUser = isGuestUser
     }
@@ -41,7 +41,7 @@ class StoriesViewModel: NSObject {
 }
 
 // MARK: - INPUT. View event methods
-extension StoriesViewModel {
+public extension StoriesViewModel {
     
     func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
         output = PassthroughSubject<Output, Never>()
