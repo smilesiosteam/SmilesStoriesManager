@@ -20,7 +20,8 @@ let package = Package(
         .package(url: "https://github.com/smilesiosteam/SmilesLoader.git", .upToNextMinor(from: "1.0.0")),
         .package(url: "https://github.com/smilesiosteam/SmilesLanguageManager.git", .upToNextMinor(from: "1.0.0")),
         .package(url: "https://github.com/smilesiosteam/SmilesFontsManager.git", .upToNextMinor(from: "1.0.0")),
-        .package(url: "https://github.com/smilesiosteam/LottieAnimationManager.git", .upToNextMinor(from: "1.0.0"))
+        .package(url: "https://github.com/smilesiosteam/LottieAnimationManager.git", .upToNextMinor(from: "1.0.0")),
+        .package(url: "https://github.com/smilesiosteam/SmilesUtilities.git", .upToNextMajor(from: "1.0.0"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -33,7 +34,8 @@ let package = Package(
                 .product(name: "SmilesLoader", package: "SmilesLoader"),
                 .product(name: "SmilesLanguageManager", package: "SmilesLanguageManager"),
                 .product(name: "SmilesFontsManager", package: "SmilesFontsManager"),
-                .product(name: "LottieAnimationManager", package: "LottieAnimationManager")
+                .product(name: "LottieAnimationManager", package: "LottieAnimationManager"),
+                .product(name: "SmilesUtilities", package: "SmilesUtilities")
             ],
             resources: [.copy("Stories.json")]),
         .testTarget(
