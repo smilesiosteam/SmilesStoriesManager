@@ -63,7 +63,7 @@ public class SmilesStoriesViewController: IGStoryPreviewController, StoryboardIn
                     }
                 case .showHideLoader(let shouldShow):
                     if shouldShow {
-                        SmilesLoader.show()
+                        SmilesLoader.show(isClearBackground: true)
                     } else {
                         SmilesLoader.dismiss()
                     }
