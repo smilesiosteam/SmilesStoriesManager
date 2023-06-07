@@ -15,12 +15,12 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/smilesiosteam/SmilesBaseMainRequest.git", .upToNextMinor(from: "1.0.0")),
-        .package(url: "https://github.com/smilesiosteam/NetworkingLayer.git", .upToNextMinor(from: "1.0.0")),
-        .package(url: "https://github.com/smilesiosteam/SmilesLoader.git", .upToNextMinor(from: "1.0.0")),
-        .package(url: "https://github.com/smilesiosteam/SmilesLanguageManager.git", .upToNextMinor(from: "1.0.0")),
-        .package(url: "https://github.com/smilesiosteam/SmilesFontsManager.git", .upToNextMinor(from: "1.0.0")),
-        .package(url: "https://github.com/smilesiosteam/LottieAnimationManager.git", .upToNextMinor(from: "1.0.0")),
+        .package(url: "https://github.com/smilesiosteam/SmilesBaseMainRequest.git", .upToNextMajor(from: "1.0.0")),
+        .package(url: "https://github.com/smilesiosteam/NetworkingLayer.git", .upToNextMajor(from: "1.0.0")),
+        .package(url: "https://github.com/smilesiosteam/SmilesLoader.git", .upToNextMajor(from: "1.0.0")),
+        .package(url: "https://github.com/smilesiosteam/SmilesLanguageManager.git", .upToNextMajor(from: "1.0.0")),
+        .package(url: "https://github.com/smilesiosteam/SmilesFontsManager.git", .upToNextMajor(from: "1.0.0")),
+        .package(url: "https://github.com/smilesiosteam/LottieAnimationManager.git", .upToNextMajor(from: "1.0.0")),
         .package(url: "https://github.com/smilesiosteam/SmilesUtilities.git", .upToNextMajor(from: "1.0.0"))
     ],
     targets: [
