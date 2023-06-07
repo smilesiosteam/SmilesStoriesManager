@@ -8,7 +8,7 @@
 
 import Foundation
 
-class IGVideoCacheManager {
+public class IGVideoCacheManager {
     
     enum VideoError: Error, CustomStringConvertible {
         case downloadError
@@ -23,7 +23,7 @@ class IGVideoCacheManager {
         }
     }
     
-    static let shared = IGVideoCacheManager()
+    public static let shared = IGVideoCacheManager()
     private init(){}
     typealias Response = Result<URL, Error>
     
@@ -60,13 +60,13 @@ class IGVideoCacheManager {
             }
         }
     }
-    func fileExists(for stringUrl: String) -> Bool {
+    public func fileExists(for stringUrl: String) -> Bool {
         guard let file = directoryFor(stringUrl: stringUrl) else {
             return false
         }
         return fileManager.fileExists(atPath: file.path)
     }
-    func clearCache(for urlString: String? = nil) {
+    public func clearCache(for urlString: String? = nil) {
         guard let cacheURL =  mainDirectoryUrl else { return }
         do {
             // Get the directory contents urls (including subfolders urls)
@@ -92,7 +92,7 @@ class IGVideoCacheManager {
             debugPrint(error.localizedDescription)
         }
     }
-    private func directoryFor(stringUrl: String) -> URL? {
+    public func directoryFor(stringUrl: String) -> URL? {
         guard let fileURL = URL(string: stringUrl)?.lastPathComponent, let mainDirURL = self.mainDirectoryUrl else { return nil }
         let file = mainDirURL.appendingPathComponent(fileURL)
         return file
