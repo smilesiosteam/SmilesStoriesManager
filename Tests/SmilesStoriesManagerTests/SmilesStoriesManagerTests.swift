@@ -1,6 +1,7 @@
 import XCTest
 import SmilesStoriesManager
 import UIKit
+import SmilesUtilities
 
 public final class SmilesStoriesManagerTests: XCTestCase {
     var viewModel:StoriesViewModel?
@@ -14,7 +15,7 @@ public final class SmilesStoriesManagerTests: XCTestCase {
     }
  
     func testParsing(){
-        guard let stories = Stories.fromFile() else {
+        guard let stories = Stories.fromModuleFile() else {
             XCTFail("Stroies not parsed")
             return
         }

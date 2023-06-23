@@ -70,31 +70,3 @@ open class SmilesStoriesHandler {
     }
     
 }
-//TODO: - Move to SmilesUtilities once module is completed and ready
-extension Bundle {
-    public static func getResourceBundle(for fileName:String,fileExtension:String)->Bundle? {
-        Bundle.module.load()
-        Bundle.allBundles.forEach({$0.load()})
-        for bundle in Bundle.allBundles {
-            if bundle.url(forResource: fileName, withExtension: fileExtension) != nil {
-                return bundle
-            }
-        }
-        return nil
-    }
-}
-
-extension Decodable {
-    public static func fromFile()->Self? {
-        let name = String(describing: self)
-        let ext = "json"
-        if let url = Bundle.getResourceBundle(for: name, fileExtension: ext)?.url(forResource: name, withExtension: ext) {
-            if let data = try? Data(contentsOf: url){
-                if let obj = try? JSONDecoder().decode(Self.self, from: data){
-                    return obj
-                }
-            }
-        }
-        return nil
-    }
-}
