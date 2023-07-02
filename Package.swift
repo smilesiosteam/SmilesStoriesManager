@@ -15,13 +15,13 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/smilesiosteam/SmilesBaseMainRequest.git", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/smilesiosteam/NetworkingLayer.git", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/smilesiosteam/SmilesLoader.git", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/smilesiosteam/SmilesLanguageManager.git", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/smilesiosteam/SmilesFontsManager.git", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/smilesiosteam/LottieAnimationManager.git", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/smilesiosteam/SmilesUtilities.git", .upToNextMajor(from: "1.0.0"))
+        .package(url: "https://github.com/smilesiosteam/SmilesBaseMainRequest.git", branch: "main"),
+        .package(url: "https://github.com/smilesiosteam/NetworkingLayer.git", branch: "main"),
+        .package(url: "https://github.com/smilesiosteam/SmilesLoader.git", branch: "main"),
+        .package(url: "https://github.com/smilesiosteam/SmilesLanguageManager.git", branch: "main"),
+        .package(url: "https://github.com/smilesiosteam/SmilesFontsManager.git", branch: "main"),
+        .package(url: "https://github.com/smilesiosteam/LottieAnimationManager.git", branch: "main"),
+        .package(url: "https://github.com/smilesiosteam/SmilesUtilities.git", branch: "main")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
