@@ -8,6 +8,7 @@
 
 import UIKit
 import SmilesLanguageManager
+import SmilesSharedServices
 /**Road-Map: Story(CollectionView)->Cell(ScrollView(nImageViews:Snaps))
  If Story.Starts -> Snap.Index(Captured|StartsWith.0)
  While Snap.done->Next.snap(continues)->done
@@ -380,7 +381,7 @@ extension IGStoryPreviewController: StoryPreviewProtocol {
         currentCell?.removeObserver()
         self.dismiss(animated: true)
     }
-    func setFavourite(wishlistResponse: StoriesWishListResponseModel, operation: Int) {
+    func setFavourite(wishlistResponse: WishListResponseModel, operation: Int) {
         if let snapIndex = self.currentCell?.snapIndex {
             var isFavorite = false
             if let updateWishlistStatus = wishlistResponse.updateWishlistStatus, updateWishlistStatus {

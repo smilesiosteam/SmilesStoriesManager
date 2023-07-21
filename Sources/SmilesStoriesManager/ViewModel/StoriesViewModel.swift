@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import NetworkingLayer
+import SmilesSharedServices
 
 public class StoriesViewModel: NSObject {
     
@@ -21,7 +22,7 @@ public class StoriesViewModel: NSObject {
     
     public enum Output {
         case fetchStoriesDidSucceed(response: Stories)
-        case updateWishlistStatusDidSucceed(response: StoriesWishListResponseModel)
+        case updateWishlistStatusDidSucceed(response: WishListResponseModel)
         case fetchDidFail(error: Error)
         case showHideLoader(shouldShow: Bool)
     }
@@ -32,6 +33,8 @@ public class StoriesViewModel: NSObject {
     public var stories: Stories?
     private var baseURL: String
     private var isGuestUser: Bool
+    private let wishListViewModel = WishListViewModel()
+    private var wishListUseCaseInput: PassthroughSubject<WishListViewModel.Input, Never> = .init()
     
     public init(baseURL: String, isGuestUser: Bool) {
         self.baseURL = baseURL
@@ -58,27 +61,32 @@ public extension StoriesViewModel {
                     self.output.send(.showHideLoader(shouldShow: false))
                     self.output.send(.fetchDidFail(error: error))
                 }
-            case .updateRestaurantWishlistStatus(let operation, let restaurantId):
-                SmilesStoriesHandler.shared.updateWishlistStatus(with: operation, restaurantId: restaurantId, offerId: nil, baseURL: self.baseURL) { response in
-                    self.output.send(.showHideLoader(shouldShow: false))
-                    self.output.send(.updateWishlistStatusDidSucceed(response: response))
-                } failure: { error in
-                    self.output.send(.showHideLoader(shouldShow: false))
-                    self.output.send(.fetchDidFail(error: error))
-                }
-            case .updateOfferWishlistStatus(let operation, let offerId):
-                SmilesStoriesHandler.shared.updateWishlistStatus(with: operation, restaurantId: nil, offerId: offerId, baseURL: self.baseURL) { response in
-                    self.output.send(.showHideLoader(shouldShow: false))
-                    self.output.send(.updateWishlistStatusDidSucceed(response: response))
-                } failure: { error in
-                    self.output.send(.showHideLoader(shouldShow: false))
-                    self.output.send(.fetchDidFail(error: error))
-                }
-
+            case .updateRestaurantWishlistStatus(operation: let operation, restaurantId: let restaurantId):
+                self.bind(to: self.wishListViewModel)
+                self.wishListUseCaseInput.send(.updateRestaurantWishlistStatus(operation: operation, restaurantId: restaurantId, baseUrl: self.baseURL))
+            case .updateOfferWishlistStatus(operation: let operation, offerId: let offerId):
+                self.bind(to: self.wishListViewModel)
+                self.wishListUseCaseInput.send(.updateOfferWishlistStatus(operation: operation, offerId: offerId, baseUrl: self.baseURL))
             }
         }.store(in: &cancellables)
         
         return output.eraseToAnyPublisher()
     }
+    
+    func bind(to wishListViewModel: WishListViewModel) {
+        wishListUseCaseInput = PassthroughSubject<WishListViewModel.Input, Never>()
+        let output = wishListViewModel.transform(input: wishListUseCaseInput.eraseToAnyPublisher())
+        output
+            .sink { [weak self] event in
+                switch event {
+                case .updateWishlistStatusDidSucceed(response: let response):
+                    self?.output.send(.updateWishlistStatusDidSucceed(response: response))
+                case .updateWishlistDidFail(error: let error):
+                    debugPrint(error)
+                    break
+                }
+            }.store(in: &cancellables)
+    }
+
     
 }

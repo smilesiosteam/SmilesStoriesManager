@@ -42,7 +42,7 @@
       "location" : "https://github.com/smilesiosteam/NetworkingLayer.git",
       "state" : {
         "branch" : "main",
-        "revision" : "39dece8c4d630686da89032ca26e504b89982dec"
+        "revision" : "48c34bc08fa85f5d76d031bbd3078236577506b9"
       }
     },
     {
@@ -73,12 +73,30 @@
       }
     },
     {
+      "identity" : "smilesanalytics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smilesiosteam/SmilesAnalytics.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "e956827dd6ad06a4da00bb99f3c754928fdab0c2"
+      }
+    },
+    {
       "identity" : "smilesbasemainrequest",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesBaseMainRequest.git",
       "state" : {
         "branch" : "main",
-        "revision" : "132a0e82f71402e3ea78bcfb50a4a264e3a3585f"
+        "revision" : "306ab0bb0ba9433427dc91cf35ac24bf31d23ed7"
+      }
+    },
+    {
+      "identity" : "smileseasytipview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smilesiosteam/SmilesEasyTipView.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "c321c738dbd135a8a68f5d09dcaee00220183d50"
       }
     },
     {
@@ -109,6 +127,24 @@
       }
     },
     {
+      "identity" : "smileslocationhandler",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smilesiosteam/SmilesLocationHandler.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "878b8c812467d8d6954fb06dbc68adf33fe42f20"
+      }
+    },
+    {
+      "identity" : "smilessharedservices",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smilesiosteam/SmilesSharedServices.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "f09f3d4619d2071c0b39bf00fdd6ab03f08150c6"
+      }
+    },
+    {
       "identity" : "smilesstorage",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesStorage.git",
@@ -123,7 +159,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesUtilities.git",
       "state" : {
         "branch" : "main",
-        "revision" : "10d7ffb7a74a96609936ac875923b5a251174590"
+        "revision" : "e03a3a31968e1f1ee20598e5a2bf3f38c84224e7"
       }
     }
   ],

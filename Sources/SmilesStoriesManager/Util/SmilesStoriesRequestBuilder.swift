@@ -15,7 +15,6 @@ enum SmilesStoriesRequestBuilder {
     
     // organise all the end points here for clarity
     case getStories(request: StoriesRequestModel)
-    case updateWishList(request: StoriesWishListRequestModel)
 
     // gave a default timeout but can be different for each.
     var requestTimeOut: Int {
@@ -26,8 +25,6 @@ enum SmilesStoriesRequestBuilder {
     var httpMethod: SmilesHTTPMethod {
         switch self {
         case .getStories:
-            return .POST
-        case .updateWishList:
             return .POST
         }
     }
@@ -48,8 +45,6 @@ enum SmilesStoriesRequestBuilder {
         switch self {
         case .getStories(let request):
             return request
-        case .updateWishList(let request):
-            return request
         }
     }
     
@@ -59,8 +54,6 @@ enum SmilesStoriesRequestBuilder {
         let endPoint = endPoint.serviceEndPoints
         switch self {
         case .getStories:
-            return "\(baseURL)\(endPoint)"
-        case .updateWishList:
             return "\(baseURL)\(endPoint)"
         }
         

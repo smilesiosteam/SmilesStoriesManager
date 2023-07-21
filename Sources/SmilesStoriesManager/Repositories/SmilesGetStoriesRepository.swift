@@ -12,7 +12,6 @@ import NetworkingLayer
 
 protocol SmilesStoriesServiceable {
     func getStories(request: StoriesRequestModel) -> AnyPublisher<Stories, NetworkError>
-    func updateWishList(request: StoriesWishListRequestModel) -> AnyPublisher<StoriesWishListResponseModel, NetworkError>
 }
 
 // getstoriesrepository
@@ -31,16 +30,6 @@ class SmilesGetStoriesRepository: SmilesStoriesServiceable {
     
     func getStories(request: StoriesRequestModel) -> AnyPublisher<Stories, NetworkError> {
         let endPoint = SmilesStoriesRequestBuilder.getStories(request: request)
-        let request = endPoint.createRequest(
-            baseURL: baseURL,
-            endPoint: self.endPoint
-        )
-        
-        return self.networkRequest.request(request)
-    }
-    
-    func updateWishList(request: StoriesWishListRequestModel) -> AnyPublisher<StoriesWishListResponseModel, NetworkError> {
-        let endPoint = SmilesStoriesRequestBuilder.updateWishList(request: request)
         let request = endPoint.createRequest(
             baseURL: baseURL,
             endPoint: self.endPoint
