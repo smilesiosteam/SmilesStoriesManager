@@ -36,14 +36,13 @@ extension ViewAnimator where Self: IGSnapProgressView {
                 strongSelf.superview?.layoutIfNeeded()
             }
         }) { [weak self] (finished) in
-            self?.story.isCancelledAbruptly = !finished
-            self?.state = .finished
-            if finished == true {
-                if let strongSelf = self {
-                    return completion(strongSelf.story_identifier!, strongSelf.snapIndex!, strongSelf.story.isCancelledAbruptly ?? false)
-                }
+            guard let strongSelf = self, let story_identifier = strongSelf.story_identifier, let snapIndex = strongSelf.snapIndex else {return}
+            strongSelf.story?.isCancelledAbruptly = !finished
+            strongSelf.state = .finished
+            if finished {
+                return completion(story_identifier, snapIndex, strongSelf.story?.isCancelledAbruptly ?? false)
             } else {
-                return completion(self?.story_identifier ?? "Unknown", self?.snapIndex ?? 0, self?.story.isCancelledAbruptly ?? true)
+                return completion(story_identifier, snapIndex, strongSelf.story?.isCancelledAbruptly ?? true)
             }
         }
     }
