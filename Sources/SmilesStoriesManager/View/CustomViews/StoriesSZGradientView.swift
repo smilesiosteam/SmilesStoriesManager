@@ -8,12 +8,12 @@
 import UIKit
 
 @IBDesignable
-class StoriesSZGradientView: UIImageView {
-    let gradientLayer = CAGradientLayer()
-    var colors: [CGColor]!
-    var locations: [NSNumber]!
+public class StoriesSZGradientView: UIImageView {
+    public let gradientLayer = CAGradientLayer()
+    public var colors: [CGColor]!
+    public var locations: [NSNumber]!
     
-    @IBInspectable var direction: UInt = 1 {
+    @IBInspectable public  var direction: UInt = 1 {
         didSet{
             configure()
         }
@@ -65,18 +65,18 @@ class StoriesSZGradientView: UIImageView {
         setup()
     }
     
-    override func prepareForInterfaceBuilder() {
+    public override func prepareForInterfaceBuilder() {
         setup()
         configure()
     }
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         setup()
         configure()
     }
     
-    func updateColors(locations: [NSNumber], colors: [CGColor]) {
+    public func updateColors(locations: [NSNumber], colors: [CGColor]) {
         self.locations = locations
         self.colors = colors
         configure()
