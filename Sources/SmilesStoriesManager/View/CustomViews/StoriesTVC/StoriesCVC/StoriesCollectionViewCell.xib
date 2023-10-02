@@ -34,7 +34,7 @@
                                     <constraint firstAttribute="height" constant="164" id="ij4-D3-6Qh"/>
                                 </constraints>
                             </imageView>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iir-XA-dMh" customClass="SZGradientView" customModule="Smiles" customModuleProvider="target">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iir-XA-dMh" customClass="StoriesSZGradientView" customModule="SmilesStoriesManager">
                                 <rect key="frame" x="0.0" y="0.0" width="152" height="164"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>

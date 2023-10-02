@@ -18,10 +18,12 @@ public class StoriesTableViewCell: UITableViewCell {
         }
     }
     public var callBack: ((Story) -> ())?
+    public static let module = Bundle.module
+    
     public override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        collectionView.register(UINib(nibName: String(describing: StoriesCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: StoriesCollectionViewCell.self))
+        collectionView.register(UINib(nibName: String(describing: StoriesCollectionViewCell.self), bundle: .module), forCellWithReuseIdentifier: String(describing: StoriesCollectionViewCell.self))
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.collectionViewLayout = setupCollectionViewLayout()

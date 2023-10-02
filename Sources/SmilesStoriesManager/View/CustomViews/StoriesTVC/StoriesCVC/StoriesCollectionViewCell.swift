@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SmilesUtilities
 
 public class StoriesCollectionViewCell: UICollectionViewCell {
     
@@ -29,9 +30,7 @@ public class StoriesCollectionViewCell: UICollectionViewCell {
         
         descriptionLabel.font = .circularXXTTBookFont(size: 12)
         descriptionLabel.textColor = .appRevampSubtitleColor
-        //        imgOverlay.showGradientColor(with: [UIColor.black.withAlphaComponent(0.3).cgColor,
-        //                                            UIColor.black.withAlphaComponent(0).cgColor], for: "bottom")
-        //        imgOverlay.addMaskedCorner(withMaskedCorner: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], cornerRadius: 8.0)
+        
         imgOverlay.locations = [0.25, 0.54, 0.83]
         imgOverlay.colors = [
             UIColor.black.withAlphaComponent(0.0).cgColor,
