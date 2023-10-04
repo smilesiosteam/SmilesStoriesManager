@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/NetworkingLayer.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "48c34bc08fa85f5d76d031bbd3078236577506b9"
+        "branch" : "shared_Models",
+        "revision" : "9d176c72f3bdb59add7a9d628bfdd9e2c3563551"
       }
     },
     {
@@ -86,8 +86,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesBaseMainRequest.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "306ab0bb0ba9433427dc91cf35ac24bf31d23ed7"
+        "branch" : "shared_models",
+        "revision" : "dbbbe487f66eb13e5a59e6a6b6b5537fe7dc878e"
       }
     },
     {
@@ -95,8 +95,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesEasyTipView.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "c321c738dbd135a8a68f5d09dcaee00220183d50"
+        "branch" : "shared_Models",
+        "revision" : "5985e6e7bf27d2b76b390b7af50e2b9c2e7e9fa3"
       }
     },
     {
@@ -131,8 +131,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesLocationHandler.git",
       "state" : {
+        "branch" : "shared_Models",
+        "revision" : "f2c8396268e25997481ab4a78fd36e165f87b637"
+      }
+    },
+    {
+      "identity" : "smilessharedmodels",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smilesiosteam/SmilesSharedModels.git",
+      "state" : {
         "branch" : "main",
-        "revision" : "878b8c812467d8d6954fb06dbc68adf33fe42f20"
+        "revision" : "dbdb39fa160f3047d4c9b06b603e9936efc1b363"
       }
     },
     {
@@ -140,8 +149,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesSharedServices.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "f09f3d4619d2071c0b39bf00fdd6ab03f08150c6"
+        "branch" : "shared_Models",
+        "revision" : "0820c065b21f32453e640c885cb159683db6ca17"
       }
     },
     {
@@ -158,8 +167,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesUtilities.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "e03a3a31968e1f1ee20598e5a2bf3f38c84224e7"
+        "branch" : "shared_Models",
+        "revision" : "476eebf3f636d33d70b62afac4fab6ff8746c134"
       }
     }
   ],

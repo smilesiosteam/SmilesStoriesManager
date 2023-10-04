@@ -8,6 +8,8 @@
 
 // MARK: - SmilesStories
 public struct Stories: Codable {
+    
+    
     var extTransactionID:String? = ""
     public var stories: [Story]?
     public mutating func setFavourite(isFavorite:Bool, storyIndex:Int, snapIndex:Int){
