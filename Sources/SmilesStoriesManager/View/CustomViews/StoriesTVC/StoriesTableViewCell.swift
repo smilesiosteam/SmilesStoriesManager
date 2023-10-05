@@ -18,6 +18,7 @@ public class StoriesTableViewCell: UITableViewCell {
         }
     }
     public var callBack: ((Story) -> ())?
+    public static let module = Bundle.module
     public override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
