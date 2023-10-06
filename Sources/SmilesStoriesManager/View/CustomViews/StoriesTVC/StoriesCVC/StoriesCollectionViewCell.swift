@@ -25,11 +25,12 @@ public class StoriesCollectionViewCell: UICollectionViewCell {
     }
     
     func setupUI() {
-        title.font = .circularXXTTMediumFont(size: 14)
-        title.textColor = .appRevampLocationTextColor
+        title.fontTextStyle = .smilesTitle2
+        title.textColor = .black
         
         descriptionLabel.font = .circularXXTTBookFont(size: 12)
         descriptionLabel.textColor = .appRevampSubtitleColor
+        descriptionLabel.isHidden = true
         
         imgOverlay.locations = [0.25, 0.54, 0.83]
         imgOverlay.colors = [

@@ -40,7 +40,7 @@ public class StoriesTableViewCell: UITableViewCell {
             
             let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 12)
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .absolute(116), heightDimension: .absolute(250)), subitems: [item])
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .absolute(116), heightDimension: .absolute(215)), subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
             section.contentInsets.leading = 16
