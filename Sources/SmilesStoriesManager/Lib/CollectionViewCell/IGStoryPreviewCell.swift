@@ -342,21 +342,22 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
     }
     
     private func startAnimationRequest(snapView: UIImageView, with url: String) {
-        LottieAnimationManager.showAnimationFromUrl(FromUrl: url, animationBackgroundView: snapView,loopMode: .loop) { animation in
-            if animation != nil {
-                OperationQueue.main.addOperation{
-                    /// Start progressor only if handpickedSnapIndex matches with snapIndex and the requested image url should be matched with current snapIndex imageurl
-                    if(self.handpickedSnapIndex == self.snapIndex && url == self.story!.snaps?[self.snapIndex].mediaUrl) {
-                        self.startProgressors()
-                    }else {
-                        self.showRetryButton(with: url, for: snapView)
+        if let animationURL = URL(string: url) {
+            LottieAnimationManager.showAnimationFromUrl(FromUrl: animationURL, animationBackgroundView: snapView,loopMode: .loop) { animation in
+                if animation != nil {
+                    OperationQueue.main.addOperation{
+                        /// Start progressor only if handpickedSnapIndex matches with snapIndex and the requested image url should be matched with current snapIndex imageurl
+                        if(self.handpickedSnapIndex == self.snapIndex && url == self.story!.snaps?[self.snapIndex].mediaUrl) {
+                            self.startProgressors()
+                        }else {
+                            self.showRetryButton(with: url, for: snapView)
+                        }
                     }
                 }
+            } completion: { done in
+                
             }
-        } completion: { done in
-            
         }
-
     }
                                          
     private func showRetryButton(with url: String, for snapView: UIImageView) {
