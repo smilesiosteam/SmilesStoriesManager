@@ -159,7 +159,16 @@ public class IGStoryPreviewController: UIViewController, UIGestureRecognizerDele
         cell?.deleteSnap()
     }
     //MARK: - Selectors
-    @objc func didSwipeDown(_ sender: Any) {
+    @objc func didSwipeDown(_ sender: Any) 
+    {
+        guard let indexPath = currentIndexPath else {
+            debugPrint("Current IndexPath is nil")
+            return
+        }
+        let cell = _view.snapsCollectionView.cellForItem(at: indexPath) as? IGStoryPreviewCell
+        
+        cell?.stopPlayer()
+        
         dismiss()
     }
  

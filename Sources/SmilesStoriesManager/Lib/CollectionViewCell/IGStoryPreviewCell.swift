@@ -372,6 +372,11 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
         ])
     }
     private func startPlayer(videoView: IGPlayerView, with url: String) {
+        longPress_gesture.isEnabled = false
+        tap_gesture.isEnabled = false
+        longPress_gesture.isEnabled = true
+        tap_gesture.isEnabled = true
+        
         if scrollview.subviews.count > 0 {
             if story?.isCompletelyVisible == true {
                 videoView.startAnimating()
@@ -763,6 +768,11 @@ final class IGStoryPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
 //MARK: - Extension|StoryPreviewHeaderProtocol
 extension IGStoryPreviewCell: StoryPreviewHeaderProtocol {
     func didTapCloseButton() {
+        if let snap = story?.snaps?[snapIndex] {
+            if snap.type == .video {
+                stopPlayer()
+            }
+        }
         delegate?.dismiss()
     }
 }
