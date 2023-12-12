@@ -788,7 +788,7 @@ extension IGStoryPreviewCell: RetryBtnDelegate {
 extension IGStoryPreviewCell: IGPlayerObserver {
     
     func didStartPlaying() {
-        if let videoView = getVideoView(with: snapIndex), videoView.currentTime <= 0 {
+        if let videoView = getVideoView(with: snapIndex) {
             if videoView.error == nil && (story?.isCompletelyVisible)! == true {
                 if let holderView = getProgressIndicatorView(with: snapIndex),
                     let progressView = getProgressView(with: snapIndex) {
