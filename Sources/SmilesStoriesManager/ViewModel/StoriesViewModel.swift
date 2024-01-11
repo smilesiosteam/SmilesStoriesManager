@@ -78,6 +78,7 @@ public extension StoriesViewModel {
         let output = wishListViewModel.transform(input: wishListUseCaseInput.eraseToAnyPublisher())
         output
             .sink { [weak self] event in
+                self?.output.send(.showHideLoader(shouldShow: false))
                 switch event {
                 case .updateWishlistStatusDidSucceed(response: let response):
                     self?.output.send(.updateWishlistStatusDidSucceed(response: response))
