@@ -48,15 +48,15 @@ public class StoriesCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(story: Story) {
-        image.setImageWithUrlString(story.imageUrl.asStringOrEmpty()) { image in
+        image.setImageWithUrlString(story.imageUrl.asStringOrEmpty()) { [weak self] image in
             if let image = image {
-                self.image.image = image
+                self?.image.image = image
             }
         }
         
-        icon.setImageWithUrlString(story.logoUrl.asStringOrEmpty()) { image in
+        icon.setImageWithUrlString(story.logoUrl.asStringOrEmpty()) { [weak self] image in
             if let image = image {
-                self.icon.image = image
+                self?.icon.image = image
             }
         }
         
